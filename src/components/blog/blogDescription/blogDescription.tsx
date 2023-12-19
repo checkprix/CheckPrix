@@ -5,7 +5,7 @@ import Footer from "../../footer/footer";
 import Navbar from "../../navbar/navbar";
 const BlogDescription = (): any => {
 
-    const {id} = useParams();
+    const { id } = useParams();
     console.log(id)
     return (<>
         <Navbar />
