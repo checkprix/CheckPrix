@@ -14,7 +14,7 @@ const Routers =():any=>{
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/aboutus" element={<AboutUs/>}/>
             <Route path="/blogs" element={<Allblogs/>}/>
-            <Route path="/blog-detail" element={<BlogDescription/>}/>
+            <Route path="/blog-detail/:id" element={<BlogDescription/>}/>
         </Routes>
         
         </>

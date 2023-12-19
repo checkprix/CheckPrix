@@ -1,8 +1,12 @@
+import { useParams } from "react-router-dom";
 import Cover from "../../../assests/images/cover.jpg"
 import Line from "../../common/Line/Line";
 import Footer from "../../footer/footer";
 import Navbar from "../../navbar/navbar";
 const BlogDescription = (): any => {
+
+    const {id} = useParams();
+    console.log(id)
     return (<>
         <Navbar />
         <div className="flex flex-col items-center mt-16">
