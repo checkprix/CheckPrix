@@ -4,6 +4,7 @@ import Line from "../common/Line/Line";
 import Card from "../common/card/card";
 import SearchBar from "../common/searchBar/searchBar";
 import BlogCard from "../common/blogcard/blogCard";
+import Footer from "../footer/footer";
 const Home = (): any => {
   return (
     <>
@@ -49,6 +50,7 @@ const Home = (): any => {
 
       {/* blogPost here */}
       <BlogPost />
+      <Footer/>
     </>
   );
 };
