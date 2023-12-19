@@ -16,13 +16,14 @@ const Allblogs = () => {
                     <Line heading={'Blog posts'} />
                 </div>
                 <div className="w-4/5 p-5 flex flex-col flex-wrap gap-5 lg:gap-3  justify-start pt-5">
-                    {/* Card here */}
-                    <BlogCard image={"https://checkprix.net/uploaded_Images/924655363.jpg"} />
-          <BlogCard image={Cover} />
+                    {/*BlogCard here */}
+                    <BlogCard title={"What’s the best smartphone to buy?"} image={"https://checkprix.net/uploaded_Images/924655363.jpg"} />
+                    <BlogCard title={"What’s the best smartphone to buy?"} image={Cover} />
+
                 </div>
 
             </div>
-            <div className="fixed bottom-0">
+            <div className="bottom-0">
                 <Footer />
             </div>
 
@@ -42,7 +43,7 @@ const BlogCard = (Props: Record<string, any>) => {
                     src={Props?.image} alt="blogImage" />
             </div>
             <div className="flex flex-col justify-center items-center gap-3 p-3">
-                <span className="text-center">What’s the best smartphone to buy?</span>
+                <span className="text-center">{Props?.title}</span>
                 <button className="text-xl p-3 text-white font-semibold rounded-md bg-gray-800 w-fit"><a href="/dashproduct/12345" target="_blank">Read More</a></button>
             </div>
         </div>

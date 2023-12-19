@@ -20,7 +20,7 @@ const Contact = (): any => {
 
                         <div className="grid grid-cols-1 gap-12 mt-10 md:grid-cols-2 lg:grid-cols-3">
                             <div>
-                                <span className="inline-block p-3 text-orange-500 rounded-full bg-gray-100/80 bg-gray-800">
+                                <span className="inline-block p-3 text-orange-500 rounded-full bg-gray-100/80 ">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                         stroke="currentColor" className="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -34,7 +34,7 @@ const Contact = (): any => {
                             </div>
 
                             <div>
-                                <span className="inline-block p-3 text-orange-500 rounded-full bg-gray-100/80 bg-gray-800">
+                                <span className="inline-block p-3 text-orange-500 rounded-full bg-gray-100/80 ">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                         stroke="currentColor" className="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -49,7 +49,7 @@ const Contact = (): any => {
                             </div>
 
                             <div>
-                                <span className="inline-block p-3 text-orange-500 rounded-full bg-gray-100/80 bg-gray-800">
+                                <span className="inline-block p-3 text-orange-500 rounded-full bg-gray-100/80 ">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                         stroke="currentColor" className="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
