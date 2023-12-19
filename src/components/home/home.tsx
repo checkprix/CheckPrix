@@ -50,7 +50,7 @@ const Home = (): any => {
 
       {/* blogPost here */}
       <BlogPost />
-      <Footer/>
+      <Footer />
     </>
   );
 };
