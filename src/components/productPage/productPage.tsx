@@ -6,6 +6,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import StorageOption from "./subComponents/StorageOptions/storangeOption";
 import SimilarProducts from "./subComponents/similarProduct/similarProduct";
 import { useState } from "react";
+import { motion } from "framer-motion";
 const ProductPage = (): any => {
   const { id } = useParams();
   //write code to fetch data for product
@@ -100,9 +101,13 @@ const Features = (Props: Record<string, any>): any => {
 
 const PriceSection = (): any => {
   return <>
-  <div className="bg-gray-100 h-48 flex justify-center items-center w-full">
+  <motion.div
+   initial={{ marginLeft: "-250px", opacity: 0.5 }}
+   whileInView={{ marginLeft: 0, opacity: 1 }}
+   transition={{ duration: 0.4, ease: "easeInOut" }}
+  className="bg-gray-100 h-48 flex justify-center items-center w-full">
     <span className=" text-center font-semibold text-4xl">Coming Soon!</span>
-  </div>
+  </motion.div>
   </>;
 };
 
@@ -126,7 +131,9 @@ const ProductOptions = (Props: Record<string, any>): any => {
         </span>
       </div>
 
-      <div className="flex md:p-10 pb-10 ">
+      <div
+       
+      className="flex md:p-10 pb-10 ">
         {Props?.whichProductOptionSelected}
       </div>
     </>
@@ -137,7 +144,11 @@ const ProductOptions = (Props: Record<string, any>): any => {
 const ProductInformation = (Props: Record<string, any>): any => {
   return (
     <>
-      <div className="flex w-full flex-col gap-10 p-10">
+      <motion.div
+       initial={{ marginLeft: "-250px", opacity: 0.5 }}
+       whileInView={{ marginLeft: 0, opacity: 1 }}
+       transition={{ duration: 0.4, ease: "easeInOut" }}
+      className="flex w-full flex-col gap-10 p-10">
         <ProductInformationSection
           headline={"General"}
           infoArray={[
@@ -159,7 +170,7 @@ const ProductInformation = (Props: Record<string, any>): any => {
             { header: "Manufacturer", value: "Apple" },
           ]}
         />
-      </div>
+      </motion.div>
     </>
   );
 };

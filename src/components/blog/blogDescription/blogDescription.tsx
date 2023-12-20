@@ -18,6 +18,7 @@ const BlogDescription = (): any => {
 
             </div>
             <div className="flex flex-col gap-7  md:max-w-2xl lg:max-w-4xl xl:max-w-6xl p-10 md:p-5 mb-5">
+                {/* map Description components */}
                 <Description />
                 <Description />
                 <Description />

@@ -2,6 +2,7 @@ import Line from "../../common/Line/Line";
 import Navbar from "../../navbar/navbar";
 import Cover from "../../../assests/images/cover.jpg"
 import Footer from "../../footer/footer";
+import { Link } from "react-router-dom";
 const Allblogs = () => {
     return (
         <>
@@ -17,8 +18,8 @@ const Allblogs = () => {
                 </div>
                 <div className="w-4/5 p-5 flex flex-col flex-wrap gap-5 lg:gap-3  justify-start pt-5">
                     {/*BlogCard here */}
-                    <BlogCard title={"What’s the best smartphone to buy?"} image={"https://checkprix.net/uploaded_Images/924655363.jpg"} />
-                    <BlogCard title={"What’s the best smartphone to buy?"} image={Cover} />
+                    <BlogCard blogId={123}  title={"What’s the best smartphone to buy?"} image={"https://checkprix.net/uploaded_Images/924655363.jpg"} />
+                    <BlogCard blogId={12} title={"What’s the best smartphone to buy?"} image={Cover} />
 
                 </div>
 
@@ -44,7 +45,7 @@ const BlogCard = (Props: Record<string, any>) => {
             </div>
             <div className="flex flex-col justify-center items-center gap-3 p-3">
                 <span className="text-center">{Props?.title}</span>
-                <button className="text-xl p-3 text-white font-semibold rounded-md bg-gray-800 w-fit"><a href="/dashproduct/12345" target="_blank">Read More</a></button>
+                <button className="text-xl p-3 text-white font-semibold rounded-md bg-gray-800 w-fit"><Link to={`/blog-detail/${Props?.blogId}`} target="_blank">Read More</Link></button>
             </div>
         </div>
     </>)
