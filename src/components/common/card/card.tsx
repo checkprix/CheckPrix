@@ -7,7 +7,7 @@ const Card = (Props: Record<string, any>): any => {
       <div className=" lg:w-96 w-full  p-5 flex flex-col gap-5 border rounded-md border-gray-400">
         <div className="w-full text-center text-xl font-semibold">Apple</div>
         <div className="w-full flex justify-center">
-          <img src="https://checkprix.net/uploaded_Images/241347069.png" alt="iphone" />
+          <img src={Props?.image} alt="iphone" />
         </div>
         <div className="w-full text-center text-xl font-semibold">IPhone 12 - 64GB</div>
         <div className="bg-gray-100 rounded-md p-5 h-fit w-full flex flex-col ">
