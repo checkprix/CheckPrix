@@ -5,6 +5,7 @@ import Card from "../common/card/card";
 import SearchBar from "../common/searchBar/searchBar";
 import BlogCard from "../common/blogcard/blogCard";
 import Footer from "../footer/footer";
+import { motion } from "framer-motion";
 const Home = (): any => {
   return (
     <>
@@ -20,18 +21,25 @@ const Home = (): any => {
       </div>
 
       {/* ------------Price Drop section start------------  */}
-      <div className="flex flex-col items-center justify-center mt-5">
+      <div
+
+
+        className="flex flex-col items-center justify-center mt-5">
         <div className="w-4/5">
           <Line heading={'Price Drop'} />
         </div>
-        <div className="w-4/5 p-5 flex flex-wrap gap-2 lg:gap-3 justify-center">
+        <motion.div
+          initial={{ marginLeft: '-250px', opacity: 0.5 }}
+          whileInView={{ marginLeft: 0, opacity: 1 }}
+          transition={{ duration: 0.4, ease: 'easeInOut' }}
+          className="w-4/5 p-5 flex flex-wrap gap-2 lg:gap-3 justify-center overflow-hidden">
           {/* Card here */}
           <Card hideLogoAndVisitStore={true} hideDeletePriceAndDownArrow={true} />
           <Card hideLogoAndVisitStore={true} hideDeletePriceAndDownArrow={true} />
           <Card hideLogoAndVisitStore={true} hideDeletePriceAndDownArrow={true} />
           <Card hideLogoAndVisitStore={true} hideDeletePriceAndDownArrow={true} />
 
-        </div>
+        </motion.div>
       </div>
       {/* -------------Price Drop section end----------------*/}
 
@@ -39,18 +47,24 @@ const Home = (): any => {
         <div className="w-4/5">
           <Line heading={'Latest Phone'} />
         </div>
-        <div className="w-4/5 p-5 flex flex-wrap gap-2 lg:gap-3 justify-center">
+        <motion.div
+          initial={{ marginLeft: '-250px', opacity: 0.5 }}
+          whileInView={{ marginLeft: 0, opacity: 1 }}
+          transition={{ duration: 0.4, ease: 'easeInOut' }}
+          className="w-4/5 p-5 flex flex-wrap gap-2 lg:gap-3 justify-center">
           {/* Card here */}
           <Card />
           <Card />
           <Card />
           <Card />
-        </div>
+        </motion.div>
       </div>
 
       {/* blogPost here */}
       <BlogPost />
-      <Footer />
+      <div className="bottom-0 h-fit mt-16">
+        <Footer />
+      </div>
     </>
   );
 };
@@ -65,11 +79,16 @@ const BlogPost = (): any => {
         <div className="w-4/5 pt-5">
           <Line heading={'Blog posts'} />
         </div>
-        <div className="w-4/5 p-5 flex flex-wrap gap-5 lg:gap-3  justify-start pt-5">
+        <motion.div
+          initial={{ marginTop: '50px', opacity: 0.5 }}
+          whileInView={{ marginTop: 0, opacity: 1 }}
+          transition={{ duration: 0.4, ease: 'easeInOut' }}
+          className="w-4/5 p-5 flex flex-wrap gap-5 lg:gap-3  justify-start pt-5">
           {/* Card here */}
-          <BlogCard />
-          <BlogCard /> <BlogCard /> <BlogCard /> <BlogCard /> <BlogCard />
-        </div>
+          <BlogCard id={123} />
+          <BlogCard id={345} />
+
+        </motion.div>
 
       </div>
     </>

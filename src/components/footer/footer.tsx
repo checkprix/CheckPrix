@@ -1,6 +1,12 @@
+import { motion} from "framer-motion";
+
 const Footer = (): any => {
   return (<>
-    <div className="px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full  md:px-24 lg:px-8 dark:bg-slate-800 text-white">
+    <motion.div
+      initial={{marginLeft:'-250px',opacity:0.5}}
+      whileInView={{marginLeft:0,opacity:1}}
+      transition={{duration:0.4,ease:'easeInOut'}}
+    className="px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full  md:px-24 lg:px-8 dark:bg-slate-800 text-white">
       <Discription />
       <div className="grid gap-10 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4 mt-4">
         <div className="sm:col-span-2">
@@ -88,7 +94,7 @@ const Footer = (): any => {
         </ul>
       </div>
 
-    </div>
+    </motion.div>
   </>)
 }
 

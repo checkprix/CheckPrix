@@ -4,6 +4,7 @@ import Contact from "../contact/contact";
 import AboutUs from "../aboutus/aboutus";
 import Allblogs from "../blog/allblogs/allblogs";
 import BlogDescription from "../blog/blogDescription/blogDescription";
+import ProductPage from "../productPage/productPage";
 
 const Routers =():any=>{
 
@@ -15,6 +16,7 @@ const Routers =():any=>{
             <Route path="/aboutus" element={<AboutUs/>}/>
             <Route path="/blogs" element={<Allblogs/>}/>
             <Route path="/blog-detail/:id" element={<BlogDescription/>}/>
+            <Route path="/product-detail/:id" element={<ProductPage/>}/>
         </Routes>
         
         </>
