@@ -42,7 +42,12 @@ const Navbar = () => {
            `}
             >
               <span className="lg:border-r border-neutral-200 lg:p-5 pl-6 mt-5 lg:mt-0  ">
-                Product
+             <span>Products</span>
+               {/* <div className="absolute  top-20 pl-5 pt-2 border border-gray-300 shadow-md rounded-md w-fit p-3">
+              <ul className="flex justify-center items-center w-fit">
+                <li>Mobiles</li>
+              </ul>
+            </div> */}
               </span>
               <span className="lg:p-5 pl-6 lg:text-gray-600 ">Price Drop</span>
               <span className="lg:p-5 pl-6 lg:text-gray-600 ">Blog</span>
@@ -50,6 +55,7 @@ const Navbar = () => {
               <span className="lg:p-5 pl-6 lg:text-gray-600 ">Contact</span>
               <span className="lg:p-5 pl-6 mb-5 lg:mb-0 lg:border-l border-neutral-200  ">Sign In</span>
             </motion.div>
+            
           </div>
         </div>
       </nav>
