@@ -17,7 +17,7 @@ const Home = (): any => {
         className="w-full h-5/6 bg-cover"
       >
         <Navbar />
-        <div className="w-full h-full p-5 flex flex-col justify-start items-center mt-5">
+        <div className="w-full h-full p-5 flex flex-col justify-center items-center">
           <SearchBar />
         </div>
       </div>
