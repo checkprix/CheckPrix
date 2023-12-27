@@ -7,6 +7,8 @@ import BlogDescription from "../blog/blogDescription/blogDescription";
 import ProductPage from "../productPage/productPage";
 import SignIn from "../signIn/singin";
 import PriceDrop from "../priceDrop/priceDrop";
+import DashBoard from "../dashboard/dashboard";
+import ChangePassword from "../changePassword/changePassword";
 
 const Routers =():any=>{
 
@@ -21,6 +23,8 @@ const Routers =():any=>{
             <Route path="/product-detail/:id" element={<ProductPage/>}/>
             <Route path="/signin" element={<SignIn/>}/>
             <Route path="price-drop" element={<PriceDrop/>}/>
+            <Route path="/dashboard" element={<DashBoard/>}/>
+            <Route path="/change-password" element={<ChangePassword/>}/>
         </Routes>
         
         </>

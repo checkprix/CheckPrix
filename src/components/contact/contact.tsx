@@ -1,14 +1,19 @@
 import Footer from "../footer/footer";
 import Navbar from "../navbar/navbar";
 import Cover from "../../assests/images/cover.jpg"
+import CurrentPage from "../common/currentPage/currentPage";
 const Contact = (): any => {
     return (
         <>
+         
             <div style={{
                 backgroundImage: `url(${Cover})`
-            }} className="flex flex-col justify-between h-full bg-gray-100 object-cover bg-no-repeat bg-cover">
-                <Navbar />
+            }} className="flex flex-col justify-between h-full bg-blend-overlay bg-gray-200 object-cover bg-no-repeat bg-cover">
+               <Navbar />
+                <div className="mt-28 pl-3 lg:pl-16"> 
+                 <CurrentPage parent={"Home"} child={"Abouts us"}/></div>
                 <section className="bg-white shadow-md">
+              
                     <div className="container px-6 py-12 mx-auto">
                         <div>
                             <p className="font-medium text-orange-500 ">Contact us</p>

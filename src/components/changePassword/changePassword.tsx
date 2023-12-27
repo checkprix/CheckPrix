@@ -1,14 +1,16 @@
 import { useState } from "react";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/navbar";
+import Cover from '../../assests/images/cover.jpg'
+const ChangePassword = () => {
 
-const SignIn = () => {
-  const [toggle, setToggle] = useState(false);
   return (
     <>
       <Navbar />
 
-      <div className="h-screen flex justify-between items-between">
+      <div style={{
+        backgroundImage: `url(${Cover})`
+      }} className="h-screen flex justify-between items-between  bg-blend-overlay bg-gray-200 object-cover bg-no-repeat bg-cover ">
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
@@ -17,9 +19,7 @@ const SignIn = () => {
               alt="Your Company"
             />
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              {!toggle
-                ? " Sign in to your account"
-                : " Sign up to your account"}
+              Change Password
             </h2>
           </div>
 
@@ -39,7 +39,9 @@ const SignIn = () => {
                     type="email"
                     autoComplete="email"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 pl-5"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 pl-5
+                    focus:outline-none bg-transparent"
+                    
                   />
                 </div>
               </div>
@@ -52,14 +54,6 @@ const SignIn = () => {
                   >
                     Password
                   </label>
-                  <div className={`text-sm ${!toggle ? "block" : "hidden"}`}>
-                    <a
-                      href="#"
-                      className="font-semibold text-orange-600 hover:text-orange-500"
-                    >
-                      Forgot password?
-                    </a>
-                  </div>
                 </div>
 
                 <div className="mt-2">
@@ -69,12 +63,14 @@ const SignIn = () => {
                     type="password"
                     autoComplete="password"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 pl-5"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 pl-5
+                    focus:outline-none bg-transparent
+                    "
                   />
                 </div>
               </div>
 
-              <div className={`text-sm ${toggle ? "block" : "hidden"}`}>
+              <div>
                 <div className="flex items-center justify-between">
                   <label
                     htmlFor="password"
@@ -91,7 +87,9 @@ const SignIn = () => {
                     type="password"
                     autoComplete="current-password"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 pl-5"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 pl-5
+                    focus:outline-none bg-transparent
+                    " 
                   />
                 </div>
               </div>
@@ -102,22 +100,10 @@ const SignIn = () => {
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
                 >
-                  {!toggle ? "Sing in" : "Sign up"}
+                Change Password
                 </button>
               </div>
             </form>
-            <p className="mt-10 text-center text-sm text-gray-500">
-              Not a member?{" "}
-              <a
-                onClick={() => {
-                  setToggle(!toggle);
-                }}
-                href="#"
-                className="font-semibold leading-6 text-orange-600 hover:text-orange-500"
-              >
-                {toggle ? " Sign in" : "Sign up"}
-              </a>
-            </p>
           </div>
         </div>
       </div>
@@ -126,4 +112,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default ChangePassword;
