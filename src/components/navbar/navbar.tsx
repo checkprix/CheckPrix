@@ -108,14 +108,16 @@ const Navbar = () => {
                 </span>
 
                 <span
-                  onMouseOver={() => setIsSignOptionOpen(true)}
-                  onMouseLeave={() => setIsSignOptionOpen(false)}
+                  // onMouseOver={() => setIsSignOptionOpen(true)}
+                  // onMouseLeave={() => setIsSignOptionOpen(false)}
                   className="lg:p-5 pl-6 mb-5 lg:mb-0 lg:border-l border-neutral-200 space-x-2"
                 >
                   <span>
                     <Link to={"/signin"}>Sing In</Link>
                   </span>
-                  <span>
+                  <span 
+                  onClick={()=>{setIsSignOptionOpen(!isSignOptionOpen)}}
+                  >
                     <FontAwesomeIcon icon={faCaretDown} />
                   </span>
                   <motion.div
