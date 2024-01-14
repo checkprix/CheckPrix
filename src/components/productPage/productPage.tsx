@@ -25,7 +25,7 @@ const ProductPage = (): any => {
         whichProductOptionSelected={whichProductOptionSelected}
         setWhichProductOptionSelected={setWhichProductOptionSelected}
       />
-      <div className="w-full">
+      <div className="w-full mt-20">
         <Footer />
       </div>
     </>

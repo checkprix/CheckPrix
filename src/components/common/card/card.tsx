@@ -32,7 +32,7 @@ const Card = (Props: Record<string, any>): any => {
             && <div className="h-full flex flex-wrap justify-around mt-5 lg:gap-3">
               <span>Logo</span>
               <span><button className="bg-orange-500 text-white p-2 rounded-md text-sm">
-                <a href="http://www.google.com" target="_blank">Visit Store</a>
+                <a href={Props?.visitLink} target="_blank">Visit Store</a>
               </button></span>
             </div>
           }

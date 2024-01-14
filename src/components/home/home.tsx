@@ -27,12 +27,12 @@ const Home = (): any => {
       </div>
 
       {/* //Slider here */}
-      <div className="flex flex-col items-center justify-center mt-5">
+      {/* <div className="flex flex-col items-center justify-center mt-5">
         <div className="w-4/5">
        
      
         </div>
-        </div>
+        </div> */}
 
       {/* ------------Price Drop section start------------  */}
       <div className="flex flex-col items-center justify-center mt-5">

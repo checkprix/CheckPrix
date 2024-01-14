@@ -32,7 +32,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className=" w-full lg:fixed bg-transparent">
+      <nav className=" w-full lg:fixed top-0 bg-transparent">
         <motion.div
           animate={{ backgroundColor: bgWhite ? "white" : "transparent" }}
           className="transition-all"
@@ -76,13 +76,13 @@ const Navbar = () => {
               >
                 <span
                   className="lg:border-r border-neutral-200 lg:p-5 pl-6 mt-5 lg:mt-0 pr-6"
-                  onMouseLeave={() => setIsSubMenuOpen(false)}
+                  onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
                 >
                   <span
                     className="space-x-2"
-                    onMouseOver={() => setIsSubMenuOpen(true)}
+                   
                   >
-                    <span>Products</span>
+                    <span className="cursor-pointer">Products</span>
                     <span>
                       <FontAwesomeIcon icon={faCaretDown} />
                     </span>
@@ -145,9 +145,11 @@ const Products = (Props: Record<string, any>): any => {
       <div className="w-full h-fit flex flex-col">
         <ul className="mt-3 border lg:bg-white flex flex-col  border-gray-200 rounded-md">
           <li className="p-3">
+            <Link to={`/products/${'mobile phones'}`}>
             <span className="lg:border-r lg:border-l lg:border-gray-300 p-2 text-white lg:text-gray-500 ">
               Mobile Phone
             </span>
+            </Link>
           </li>
         </ul>
       </div>
