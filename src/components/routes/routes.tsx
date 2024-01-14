@@ -11,7 +11,9 @@ import DashBoard from "../dashboard/dashboard";
 import ChangePassword from "../changePassword/changePassword";
 import Products from "../allProducts/products";
 import Search from "../search/search";
-
+import FAQ from "../faq/faq";
+import TermAndConidtion from "../termAndConditions/termAndCondition";
+import Policy from "../privacy policy/privacyPolicy"
 const Routers =():any=>{
 
     return (
@@ -29,6 +31,9 @@ const Routers =():any=>{
             <Route path="/change-password" element={<ChangePassword/>}/>
             <Route path="/products/:param" element = {<Products/>}/>
             <Route path="/search/:param" element = {<Search/>}/>
+            <Route path="/faq" element={<FAQ/>}/>
+            <Route path="/term-conditions" element={<TermAndConidtion/>}/>
+            <Route path="/privacy-policy" element={<Policy/>}/>
         </Routes>
         
         </>

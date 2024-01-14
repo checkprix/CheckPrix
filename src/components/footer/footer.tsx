@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 const Footer = (): any => {
   return (
     <>
@@ -156,28 +157,28 @@ const Footer = (): any => {
           </p>
           <ul className="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
             <li>
-              <a
-                href="/"
+              <Link
+                to={"/faq"}
                 className="text-sm text-white transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 F.A.Q
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/"
+              <Link
+               to={"/privacy-policy"}
                 className="text-sm text-white transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
-                Privacy Policy
-              </a>
+              Privacy Policy
+              </Link>
             </li>
             <li>
-              <a
-                href="/"
+              <Link
+               to={"/term-conditions"}
                 className="text-sm text-white transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 Terms &amp; Conditions
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

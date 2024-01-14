@@ -1,0 +1,20 @@
+{
+  "faq": [
+    {
+      "question": "What does CheckPrix do?",
+      "answer": "CheckPrix is a price comparison website which helps buyers both offline and online compare mobile phone prices across stores at once and provides links to buy from the best store."
+    },
+    {
+      "question": "So how does it work?",
+      "answer": "This is very easy! All you have to do is use our search bar or browse the individual brands by clicking on the start comparing button or using the mobile phone links right at the top. We have made all these possible for you to find the best deal quickly and easily."
+    },
+    {
+      "question": "What is a Price Comparison Website Then?",
+      "answer": "A price comparison website is a website that lists all products from a number of stores at once. Think of it as a market where you get all the offers available from different sellers in one place. This takes away the hassle of moving from one online shop to another or moving from one physical shop to another in an attempt to get the best deal."
+    },
+    {
+      "question": "Is that all?",
+      "answer": "No! We also have price drops which capture recent price reductions so you can find not only the best deal but at a reduced price too."
+    }
+  ]
+}
