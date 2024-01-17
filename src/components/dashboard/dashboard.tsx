@@ -14,7 +14,7 @@ const DashBoard = (): any => {
       <div className="h-full flex flex-col items-center justify-between relative">
         <Navbar />
 
-        <div className="w-4/5 lg:mt-28 pb-5">
+        <div className="w-4/5 lg:mt-28">
           <CurrentPage parent={"Home"} child={"Dashboard"} />
         {/* hide NotAvailable component if data is not available */}
           <NotAvailable />

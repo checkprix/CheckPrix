@@ -1,7 +1,7 @@
 
 import Routers from "./components/routes/routes";
 import { BrowserRouter } from "react-router-dom";
-
+import 'flowbite'
 function App() {
   return (
     <>

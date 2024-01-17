@@ -14,6 +14,7 @@ import Search from "../search/search";
 import FAQ from "../faq/faq";
 import TermAndConidtion from "../termAndConditions/termAndCondition";
 import Policy from "../privacy policy/privacyPolicy"
+import AdminDashboard from "../../adminPanel/dashboard/dashboard"
 const Routers =():any=>{
 
     return (
@@ -34,6 +35,7 @@ const Routers =():any=>{
             <Route path="/faq" element={<FAQ/>}/>
             <Route path="/term-conditions" element={<TermAndConidtion/>}/>
             <Route path="/privacy-policy" element={<Policy/>}/>
+            <Route path="/admin-dashboard" element= {<AdminDashboard/>}/>
         </Routes>
         
         </>
