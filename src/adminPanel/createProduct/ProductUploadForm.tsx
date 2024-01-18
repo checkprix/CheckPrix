@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
 
 const ProductUploadForm = () => {
   const [productName, setProductName] = useState("iPhone 14 Pro Max");
@@ -29,7 +31,17 @@ const ProductUploadForm = () => {
   const [fastCharging, setFastCharging] = useState("Yes");
   const [wirelessCharging, setWirelessCharging] = useState("Yes");
   const [usbCharging, setUSBCharging] = useState("No");
+  const [file, setFile] = useState<File | null>(null);
+  const [previewURL, setPreviewURL] = useState<string | null>(null);
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const selectedFile = e.target.files && e.target.files[0];
+
+    if (selectedFile) {
+      setFile(selectedFile);
+      setPreviewURL(URL.createObjectURL(selectedFile));
+    }
+  };
   const handleProductUpload = () => {
     // Add your logic to upload product details
     console.log("Product Name:", productName);
@@ -61,7 +73,25 @@ const ProductUploadForm = () => {
   return (
     <>
       <div className="my-8 p-16 bg-white rounded-md w-full ">
-        <h2 className="text-2xl font-semibold mb-6">Upload Product Details</h2>
+        <div className="flex justify-between">
+          <h2 className="text-2xl font-semibold mb-6">
+            Create a new product
+          </h2>
+          <div className="h-auto">
+            <button
+              className="bg-red-500 border-neutral-200 border text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-700"
+              // onClick={}
+            >
+              Delete
+            </button>
+            <button
+              className="bg-blue-500 border-neutral-200 border text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700"
+              // onClick={}
+            >
+              Save
+            </button>
+          </div>
+        </div>
         <div className="flex gap-4">
           <div className="flex flex-col w-1/2">
             <div className="mb-4">
@@ -358,6 +388,39 @@ const ProductUploadForm = () => {
             </div>
           </div>
         </div>
+        <div className="mb-4">
+        <label
+          htmlFor="file"
+          className="block text-sm font-medium text-gray-600"
+        >
+          Upload Cover Image
+        </label>
+        <input
+          type="file"
+          id="file"
+          className="hidden"
+          accept="image/*" // Limit to image files, adjust as needed
+          onChange={handleFileChange}
+        />
+        <label
+          htmlFor="file"
+          className="mt-4 p-2  border border-neutral-200 cursor-pointer flex justify-center rounded-md"
+          style={{minHeight:'96px'}}
+        >
+          {previewURL ? (
+            <img
+              src={previewURL}
+              alt="Selected"
+              className="w-96  h-auto object-center object-cover"
+            />
+          ) : (
+            <div className="flex justify-center items-center flex-col text-neutral-500 ">
+                <FontAwesomeIcon className=" text-3xl " icon={faImage}/>
+                <span className="text-xl">Click here to select image </span>
+            </div>
+          )}
+        </label>
+      </div>
       </div>
     </>
   );
