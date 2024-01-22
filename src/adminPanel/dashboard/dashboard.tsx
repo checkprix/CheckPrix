@@ -1,20 +1,17 @@
-import React from "react"
+import React from "react";
 import Navbar from "../navbar/navbar";
 import CreateBlog from "../createBlog/createBlog";
-import ProductUploadForm from "../createProduct/ProductUploadForm";
-const AdminDashboard = () =>{
-    return (<>
-    <div className="w-full h-screen overflow-y-scroll">
-        <div>
-        <Navbar/>
-        </div>
+import ProductList from "../productList/productList";
+const AdminDashboard = () => {
+  return (
+    <>
+      <div className="w-full h-screen overflow-y-scroll">
         <div className="w-full">
-            {/* <CreateBlog/> */}
-            <ProductUploadForm/>
+         <ProductList/>
         </div>
-    </div>
-    </>)
-}
-
+      </div>
+    </>
+  );
+};
 
 export default AdminDashboard;

@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import Logo from "../../../src/assests/logo/logo.png"
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(true);
   const [bgWhite, setBgWhite] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [isSignOptionOpen, setIsSignOptionOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const navigate = useNavigate()
+
   useEffect(() => {
     if (window.innerWidth <= 1024 && isMenuOpen === true) {
       setMenuOpen(false);
@@ -46,7 +51,7 @@ const Navbar = () => {
               <span className="https://checkprix.net/images/logo.png">
                 <Link to={"/"}>
                   <img
-                    src="https://checkprix.net/images/logo.png"
+                    src={Logo}
                     className="h-10 object-cover bg-cover"
                     alt="logo"
                   />
@@ -78,10 +83,7 @@ const Navbar = () => {
                   className="lg:border-r border-neutral-200 lg:p-5 pl-6 mt-5 lg:mt-0 pr-6"
                   onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
                 >
-                  <span
-                    className="space-x-2"
-                   
-                  >
+                  <span className="space-x-2">
                     <span className="cursor-pointer">Products</span>
                     <span>
                       <FontAwesomeIcon icon={faCaretDown} />
@@ -110,21 +112,43 @@ const Navbar = () => {
                 <span
                   // onMouseOver={() => setIsSignOptionOpen(true)}
                   // onMouseLeave={() => setIsSignOptionOpen(false)}
-                  className="lg:p-5 pl-6 mb-5 lg:mb-0 lg:border-l border-neutral-200 space-x-2"
+                  onClick={() => {
+                    if(checkIsLoggedIn()){
+                      setIsSignOptionOpen(!isSignOptionOpen);
+                      return;
+                    }
+
+                    navigate('/signin')
+                  
+                  }}
+                  className="lg:p-5 pl-6 mb-5 lg:mb-0 lg:border-l border-neutral-200 space-x-2 cursor-pointer"
                 >
                   <span>
-                    <Link to={"/signin"}>Sing In</Link>
+                    {/* <Link to={!checkIsLoggedIn()? "#" :"/signin"}> */}
+                      {
+                        checkIsLoggedIn()? <FontAwesomeIcon icon={faUser}/> :"Sign In"
+                      }
+                    {/* </Link> */}
                   </span>
-                  <span 
-                  onClick={()=>{setIsSignOptionOpen(!isSignOptionOpen)}}
-                  >
-                    <FontAwesomeIcon icon={faCaretDown} />
-                  </span>
+                  {checkIsLoggedIn() && (
+                    <span
+                      onClick={() => {
+                        setIsSignOptionOpen(!isSignOptionOpen);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faCaretDown} />
+                    </span>
+                  )}
                   <motion.div
                     animate={{ display: !isSignOptionOpen ? "none" : "block" }}
                     className="lg:absolute top-16 lef static"
                   >
-                    <LoggedInOption setIsSignOptionOpen={setIsSignOptionOpen} />
+                    {/* logged In component has options for Favorite changePassword and logout */}
+                    {checkIsLoggedIn() && (
+                      <LoggedInOption
+                        setIsSignOptionOpen={setIsSignOptionOpen}
+                      />
+                    )}
                   </motion.div>
                 </span>
               </motion.div>
@@ -145,10 +169,10 @@ const Products = (Props: Record<string, any>): any => {
       <div className="w-full h-fit flex flex-col">
         <ul className="mt-3 border lg:bg-white flex flex-col  border-gray-200 rounded-md">
           <li className="p-3">
-            <Link to={`/products/${'mobile phones'}`}>
-            <span className="lg:border-r lg:border-l lg:border-gray-300 p-2 text-white lg:text-gray-500 ">
-              Mobile Phone
-            </span>
+            <Link to={`/products/${"mobile phones"}`}>
+              <span className="lg:border-r lg:border-l lg:border-gray-300 p-2 text-white lg:text-gray-500 ">
+                Mobile Phone
+              </span>
             </Link>
           </li>
         </ul>
@@ -188,3 +212,17 @@ const LoggedInOption = (Props: Record<string, any>): any => {
     </>
   );
 };
+
+
+const checkIsLoggedIn = ():any=>{
+  
+  if(!localStorage.getItem('checkprix'))
+  {
+    return true;
+  }
+
+  return false;
+
+
+
+}

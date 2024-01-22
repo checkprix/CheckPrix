@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { useParams } from "react-router-dom";
 
 const ProductUploadForm = () => {
   const [productName, setProductName] = useState("iPhone 14 Pro Max");
@@ -70,20 +71,33 @@ const ProductUploadForm = () => {
     console.log("USB Charging:", usbCharging);
   };
 
+  const param: any = useParams();
+  useEffect(() => {
+    console.log(param);
+  }, []);
+
+  // const deleteProduct = (id:number):Record<string,any>=>{
+  //   return {
+  //     isSucess:true
+  //   }
+  // }
+
   return (
     <>
       <div className="my-8 p-16 bg-white rounded-md w-full ">
         <div className="flex justify-between">
           <h2 className="text-2xl font-semibold mb-6">
-            Create a new product
+            {!param?.id ? "Create a new product" : "Update Product"}
           </h2>
           <div className="h-auto">
-            <button
+            {(param?.id)? <button
               className="bg-red-500 border-neutral-200 border text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-700"
-              // onClick={}
+               onClick={async ()=>{
+                // const isDelete = await deleteProduct(1);
+               }}
             >
               Delete
-            </button>
+            </button>:''}
             <button
               className="bg-blue-500 border-neutral-200 border text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700"
               // onClick={}
@@ -389,38 +403,38 @@ const ProductUploadForm = () => {
           </div>
         </div>
         <div className="mb-4">
-        <label
-          htmlFor="file"
-          className="block text-sm font-medium text-gray-600"
-        >
-          Upload Cover Image
-        </label>
-        <input
-          type="file"
-          id="file"
-          className="hidden"
-          accept="image/*" // Limit to image files, adjust as needed
-          onChange={handleFileChange}
-        />
-        <label
-          htmlFor="file"
-          className="mt-4 p-2  border border-neutral-200 cursor-pointer flex justify-center rounded-md"
-          style={{minHeight:'96px'}}
-        >
-          {previewURL ? (
-            <img
-              src={previewURL}
-              alt="Selected"
-              className="w-96  h-auto object-center object-cover"
-            />
-          ) : (
-            <div className="flex justify-center items-center flex-col text-neutral-500 ">
-                <FontAwesomeIcon className=" text-3xl " icon={faImage}/>
+          <label
+            htmlFor="file"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Upload Cover Image
+          </label>
+          <input
+            type="file"
+            id="file"
+            className="hidden"
+            accept="image/*" // Limit to image files, adjust as needed
+            onChange={handleFileChange}
+          />
+          <label
+            htmlFor="file"
+            className="mt-4 p-2  border border-neutral-200 cursor-pointer flex justify-center rounded-md"
+            style={{ minHeight: "96px" }}
+          >
+            {previewURL ? (
+              <img
+                src={previewURL}
+                alt="Selected"
+                className="w-96  h-auto object-center object-cover"
+              />
+            ) : (
+              <div className="flex justify-center items-center flex-col text-neutral-500 ">
+                <FontAwesomeIcon className=" text-3xl " icon={faImage} />
                 <span className="text-xl">Click here to select image </span>
-            </div>
-          )}
-        </label>
-      </div>
+              </div>
+            )}
+          </label>
+        </div>
       </div>
     </>
   );

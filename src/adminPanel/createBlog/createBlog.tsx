@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { useParams } from "react-router-dom";
 const CreateBlog = (): any => {
+  //param
+  const param: any = useParams();
+
+  //states
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
@@ -25,16 +30,35 @@ const CreateBlog = (): any => {
     }
   };
 
+  useEffect(() => {
+    //fecth api for blog id
+    console.log(param?.id);
+  }, []);
+
   return (
     <div className="my-8 p-16 bg-white rounded-md w-full">
       <div className="flex justify-between">
-        <h2 className="text-2xl font-semibold mb-6">Create a New Blog Post</h2>
-        <button
-          className="bg-blue-500 border-neutral-200 border text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700"
-          onClick={handleSavePost}
-        >
-          Save Post
-        </button>
+        <h2 className="text-2xl font-semibold mb-6">
+          {!param?.id ? "Create a New Blog Post" : "Update blog"}
+        </h2>
+        <div>
+          <button
+            className="bg-blue-500 border-neutral-200 border text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700"
+            onClick={handleSavePost}
+          >
+            Save Post
+          </button>
+
+{
+
+      (param?.id)?  <button
+            className="bg-red-500 border-neutral-200 border text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:red-blue-700"
+            onClick={()=>{}} // delete method implement here
+          >
+            Delete
+          </button> : ''
+}
+        </div>
       </div>
 
       <div className="mb-4">
@@ -105,7 +129,7 @@ const CreateBlog = (): any => {
         <label
           htmlFor="file"
           className="mt-4 p-2  border border-neutral-200 cursor-pointer flex justify-center rounded-md"
-          style={{minHeight:'96px'}}
+          style={{ minHeight: "96px" }}
         >
           {previewURL ? (
             <img
@@ -115,8 +139,8 @@ const CreateBlog = (): any => {
             />
           ) : (
             <div className="flex justify-center items-center flex-col text-neutral-500 ">
-                <FontAwesomeIcon className=" text-3xl " icon={faImage}/>
-                <span className="text-xl">Click here to select image </span>
+              <FontAwesomeIcon className=" text-3xl " icon={faImage} />
+              <span className="text-xl">Click here to select image </span>
             </div>
           )}
         </label>

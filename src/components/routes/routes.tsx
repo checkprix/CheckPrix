@@ -15,6 +15,11 @@ import FAQ from "../faq/faq";
 import TermAndConidtion from "../termAndConditions/termAndCondition";
 import Policy from "../privacy policy/privacyPolicy"
 import AdminDashboard from "../../adminPanel/dashboard/dashboard"
+import CreateBlog from "../../adminPanel/createBlog/createBlog";
+import BlogList from "../../adminPanel/blogList/blogList";
+import ProductList from "../../adminPanel/productList/productList";
+import ProductUploadForm from "../../adminPanel/createProduct/ProductUploadForm";
+import AdminLogin from "../../adminPanel/login/login";
 const Routers =():any=>{
 
     return (
@@ -36,6 +41,13 @@ const Routers =():any=>{
             <Route path="/term-conditions" element={<TermAndConidtion/>}/>
             <Route path="/privacy-policy" element={<Policy/>}/>
             <Route path="/admin-dashboard" element= {<AdminDashboard/>}/>
+            <Route path="/create-blog" element= {<CreateBlog/>}/>
+            <Route path="/update-blog/:id" element= {<CreateBlog/>}/>
+            <Route path="/blog-list" element= {<BlogList/>}/>
+            <Route path="/product-list" element= {<ProductList/>}/>
+            <Route path="/create-product" element= {<ProductUploadForm/>}/>
+            <Route path="/create-product/:id" element= {<ProductUploadForm/>}/>
+            <Route path="/admin-login" element= {<AdminLogin/>}/>
         </Routes>
         
         </>
