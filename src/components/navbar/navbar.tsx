@@ -216,7 +216,7 @@ const LoggedInOption = (Props: Record<string, any>): any => {
 
 const checkIsLoggedIn = ():any=>{
   
-  if(!localStorage.getItem('checkprix'))
+  if(localStorage.getItem('checkprix'))
   {
     return true;
   }

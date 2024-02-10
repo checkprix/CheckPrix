@@ -1,37 +1,34 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Image from "../../assests/images/cover.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../navbar/navbar";
+import { useGetData } from "../../apihooks/apihooks";
 const ProductList = () => {
   const navigate = useNavigate();
+  const [page,setPage] = useState<number>(1)
   const param = useParams()
-  const [data, setData] = useState([
-    {
-      id: 1,
-      image: Image,
-      title: "Title 1 Title 1 Title 1",
-      createdAt: "2024-01-22",
-      test:'test'
-    },
-    {
-      id: 2,
-      image: Image,
-      title: "Title 2 Title 1 Title 1",
-      createdAt: "2024-01-23",
-      test:'test'
-    },
-    // Add more items as needed
-  ]);
+  const [data, setData] = useState<Record<string,any>>([]);
 
-  const handleEdit = (id: number) => {
-    // Implement edit functionality
-    console.log(`Editing item with id ${id}`);
-  };
+  const GetData = async(setData:Function)=>{
+   const data = await useGetData("http://localhost:4000/api/products/admin/1")
+   console.log(data.data);
+   setData(data.data.products)
+  }
 
-  const handleDelete = (id: number) => {
-    // Implement delete functionality
-    setData(data.filter((item) => item.id !== id));
-  };
+
+  useEffect(()=>{
+    GetData(setData)
+  },[])
+
+  // const handleEdit = (id: number) => {
+  //   // Implement edit functionality
+  //   console.log(`Editing item with id ${id}`);
+  // };
+
+  // const handleDelete = (id: number) => {
+  //   // Implement delete functionality
+  //   setData(data.filter((item) => item.id !== id));
+  // };
 
   
 
@@ -61,16 +58,16 @@ const ProductList = () => {
               Image
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Title
+              Full Name
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Created At
+            </th> */}
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Model
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Test
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Test
+            Created At
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Options
@@ -78,22 +75,22 @@ const ProductList = () => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {data.map((item) => (
+          {data?.map((item:any,index:number) => (
             <tr key={item.id}>
-              <td className="px-6 py-4 whitespace-nowrap">{item.id}</td>
+              <td className="px-6 py-4 whitespace-nowrap">{index+1}</td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <img
-                  src={item.image}
+                  src={item?.image[0]?.link.toString()}
                   alt={item.title}
                   className="w-10 h-10 object-cover rounded-full"
                 />
               </td>
               <td className="px-6 py-4 whitespace-nowrap overflow-clip">
-                {item.title}
+                {(item?.details?.product_name)}
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">{item.createdAt}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{item?.test}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{item?.test}</td>
+              {/* <td className="px-6 py-4 whitespace-nowrap">{item.createdAt}</td> */}
+              <td className="px-6 py-4 whitespace-nowrap">{(item?.details?.model)?item?.details?.model:"N/A"}</td>
+              <td className="px-6 py-4 whitespace-nowrap">{new Date(parseInt(item?.created_at)).toLocaleDateString()}</td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <button
                   onClick={() => {
@@ -105,7 +102,7 @@ const ProductList = () => {
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDelete(item.id)}
+                  // onClick={() => handleDelete(item.id)}
                   className="text-red-600 hover:text-red-900 ml-2"
                 >
                   Delete
