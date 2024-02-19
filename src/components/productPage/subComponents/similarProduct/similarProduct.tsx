@@ -1,7 +1,16 @@
 import Card from "../../../common/card/card";
 import { motion } from "framer-motion";
+import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
+import { GetProducts } from "../../../../common_method/commonMethods";
 const SimilarProducts = (): any => {
+
+  
+
+  const [similar_phone_list,set_similar_phone_list] = useState<Record<string,any>[]>([])
+  useEffect(()=>{
+     GetProducts(1,set_similar_phone_list);
+  },[])
   return (
     <>
       <motion.div
@@ -11,21 +20,22 @@ const SimilarProducts = (): any => {
         className="lg:justify-start  p-5 flex flex-wrap md:justify-center  gap-2 lg:gap-3  overflow-hidden w-full "
       >
         {/* Card here */}
-        <Link className="w-full md:w-72 lg:w-96" to={`/product-detail/${12}`} target="_blank">
-          <Card
-            hideLogoAndVisitStore={true}
-            hideDeletePriceAndDownArrow={true}
-            image={"https://checkprix.net/uploaded_Images/241347069.png"}
-          />
-        </Link>
-
-        <Link className="w-full md:w-72 lg:w-96" to={`/product-detail/${12}`} target="_blank">
-          <Card
-            hideLogoAndVisitStore={true}
-            hideDeletePriceAndDownArrow={true}
-            image={"https://checkprix.net/uploaded_Images/241347069.png"}
-          />
-        </Link>
+    
+        {
+              Array.isArray(similar_phone_list) && similar_phone_list.map((item:Record<string,any>)=>{
+                return  <Card
+                hideLogoAndVisitStore={true}
+                hideDeletePriceAndDownArrow={true}
+                image={item.image[0].link}
+                visitLink={item.store_link}
+                old_price={item.old_price}
+                new_price={item.new_price}
+                product_name={item.details.product_name}
+                brand={item.details.manufacturer}
+                id={item.id}
+              />
+              })
+            }
 
 
       </motion.div>

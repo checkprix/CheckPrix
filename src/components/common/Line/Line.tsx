@@ -3,7 +3,7 @@ const Line = (Props: any): any => {
     <>
       <div className="w-full">
         <div className="w-full">
-          <div className="w-fit p-5 flex flex-col">
+          <div className="w-fit flex flex-col">
             <span
               style={{ borderBottomWidth: "3px" }}
               className="text-3xl text-gray-500 border-orange-500"
@@ -21,7 +21,7 @@ const Line = (Props: any): any => {
           );
         })}
 
-        <div className="p-5 w-full">
+        <div className="pt-10 w-full">
           <span
             style={{ height: "1px" }}
             className="block w-full bg-gray-400"

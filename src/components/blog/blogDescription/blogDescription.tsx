@@ -3,39 +3,48 @@ import Cover from "../../../assests/images/cover.jpg";
 import Line from "../../common/Line/Line";
 import Footer from "../../footer/footer";
 import Navbar from "../../navbar/navbar";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import { GetBlogById } from "./methods/methods";
 const BlogDescription = (): any => {
+
+  const [blog_state,set_blog] = useState<Record<string,any>>({})
   const { id } = useParams();
   console.log(id);
 
   useEffect(()=>{
     //Fetch description and image link
+    GetBlogById(id,set_blog)
   },[])
 
-  const str = [
-    " When it comes down to it, both iOS and Android have their pros and cons. If you are choosing a smartphone, the operating system will mostly come down to personal preference. In the big picture, our lives revolve around smartphones - from how we connect with people socially, to how we conduct business, and how we organize our day-to-day lives. This means that now more than ever before, the operating system you choose is something that really matters - it changes how you can use your phone, what apps are available to you, and a multitude of other factors.",
-  ];
+
 
   return (
     <>
       <Navbar />
-      <div className="flex flex-col items-center mt-16">
-        <div className="w-fit flex flex-col gap-2 items-center justify-center p-5">
-          <img
-            src={Cover}
+      <div className="flex justify-center mt-5 lg:mt-28 w-full">
+      <img
+            src={(Array.isArray(blog_state.image))? blog_state.image[0].link:''}
             className="block object-cover bg-cover bg-no-repeat md:max-w-2xl lg:max-w-4xl xl:max-w-6xl p-5"
             alt="blog cover image"
           />
-          <div className="w-full">
-            <Line heading={"Title sds"} />
           </div>
+      
+      <div className="flex flex-col items-center">
+        <div className="flex md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mt-3 p-10 md:p-5 mb-5 w-full">
+        <Line heading={blog_state?.title} />
         </div>
-        <div className="flex flex-col gap-7  md:max-w-2xl lg:max-w-4xl xl:max-w-6xl p-10 md:p-5 mb-5">
+
+        <div className="flex  flex-col gap-7  md:max-w-2xl lg:max-w-4xl xl:max-w-6xl p-10 md:p-5 mb-5 w-full">
           {/* map Description components */}
-          <Description description={str} />
+        <Details details={blog_state?.detail} heading={"Detail"}/>
+        </div>
+
+        <div className="flex flex-col gap-3 md:max-w-2xl lg:max-w-4xl xl:max-w-6xl p-10 md:p-5 mb-5 w-full">
+          {/* map Description components */}
+          <Description description={blog_state?.description} heading={"Title"}/>
         </div>
       </div>
-      <div className="bottom-0">
+      <div >
         <Footer />
       </div>
     </>
@@ -44,14 +53,25 @@ const BlogDescription = (): any => {
 
 export default BlogDescription;
 
-const Description = ({ description }: Record<string, any>): any => {
+const Description = ({ description,heading }: any): any => {
+  if(!description) return ''
+  //breaked string in array
+  const break_in_array = description.split('\n');
   return (
     <>
-      <p className="font-semibold">Title</p>
+      <p className="font-semibold">{heading}</p>
 
-      {description.map((item: string, index: number) => {
-        return <p key={index}>{item}</p>;
+      {Array.isArray(break_in_array) && break_in_array.map((item: string, index: number) => {
+        return <p className="text-xl" key={index}>{item}</p>;
       })}
     </>
   );
 };
+
+
+
+const Details = ({details,heading}:any):any=>{
+  return <>
+  <Description description={details} heading={heading}/>
+  </>
+}

@@ -143,7 +143,7 @@ const Footer = (): any => {
         <Disclaimer />
         <div className="flex flex-col-reverse justify-between pt-5 pb-10 border-t lg:flex-row">
           <p className="text-sm text-white">
-            © Copyright 2020 Lorem Inc. All rights reserved.
+            {`© Copyright ${new Date().getFullYear()} Lorem Inc. All rights reserved.`}
           </p>
           <p className="text-sm text-white items-center flex gap-2">
             <span>Made with</span>

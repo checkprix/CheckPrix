@@ -1,31 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import { login } from './methods/methods';
+import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e:any) => {
-    e.preventDefault();
-
-    // Validate inputs (add more validation as needed)
-    if (!email || !password) {
-      setError('Please enter both email and password.');
-      return;
-    }
-
-    // Call your login API or function here
-    try {
-      // Example: const response = await api.login({ email, password });
-      // Handle success and redirect if needed
-      console.log('Login successful!');
-      setError('');
-    } catch (err:any) {
-      // Handle login failure
-      console.error('Login failed:', err.message);
-      setError('Invalid email or password.');
-    }
-  };
+useEffect(()=>{
+  if(localStorage.getItem("check_prix_admin")) navigate('/admin-dashboard');
+},[])
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -33,7 +18,7 @@ const AdminLogin = () => {
         <div>
           <h2 className="text-center text-3xl font-extrabold text-gray-900">Admin Login</h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-6" >
           {error && (
             <p className="text-red-500 text-sm">{error}</p>
           )}
@@ -67,6 +52,11 @@ const AdminLogin = () => {
           </div>
           <div>
             <button
+            onClick={async(e)=> {
+              e.preventDefault();
+              check_is_login_success(await login(email,password),navigate);
+            }
+            }
               type="submit"
               className="w-full bg-indigo-500 text-white p-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring focus:border-indigo-400"
             >
@@ -80,3 +70,14 @@ const AdminLogin = () => {
 };
 
 export default AdminLogin;
+
+const check_is_login_success = (is_login:boolean,navigate:Function)=>{
+  if(is_login) 
+  {
+    navigate('/admin-dashboard');
+    return;
+  }
+
+
+
+}

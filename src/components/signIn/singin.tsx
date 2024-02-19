@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/navbar";
-import { usePostData } from "../../apihooks/apihooks";
+import { PostDataApiJSON } from "../../apihooks/apihooks";
 import { useNavigate } from "react-router-dom";
 import Notification from "../common/notification/notification";
+import { Link } from "react-router-dom";
 const SignIn = () => {
   const [toggle, setToggle] = useState(false);
   const [password, setPassword] = useState("");
@@ -18,7 +19,7 @@ const SignIn = () => {
   return (
     <>
       <Navbar />
-     { trigger &&<Notification message={message} setTrigger={setTrigger} />}
+     { trigger &&<Notification message={message} setTrigger={setTrigger} status={false} />}
       <div className="h-screen flex justify-between items-between">
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -45,7 +46,7 @@ const SignIn = () => {
                 </label>
                 <div className="mt-2">
                   <input
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {console.log(e.target.value); setEmail(e.target.value)}}
                     id="email"
                     name="email"
                     type="email"
@@ -66,12 +67,12 @@ const SignIn = () => {
                     Password
                   </label>
                   <div className={`text-sm ${!toggle ? "block" : "hidden"}`}>
-                    <a
-                      href="#"
+                    <Link
+                      to={'/forget-password'}
                       className="font-semibold text-orange-600 hover:text-orange-500"
                     >
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
                 </div>
 
@@ -119,7 +120,7 @@ const SignIn = () => {
                     e.preventDefault();
                     const res = await SumbmitForDetail(email, password, toggle);
                     console.log(res);
-                    if (res?.is_success && !toggle) {
+                    if (res?.is_success) {
                       SetLocalStorage();
                       navigate("/");
                     } else if(password !== confirmPassword && toggle)
@@ -169,7 +170,7 @@ const SumbmitForDetail = async (
   toggle: boolean
 ) => {
   try {
-    const response = await usePostData(
+    const response = await PostDataApiJSON(
       !toggle
         ? process.env.REACT_APP_LOGIN_API_URL
         : process.env.REACT_APP_REGISTER_API_URL,

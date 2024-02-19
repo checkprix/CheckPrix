@@ -4,7 +4,8 @@ import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import Logo from "../../../src/assests/logo/logo.png"
+import Logo from "../../../src/assests/logo/logo.png";
+import { GetDataAPI, GetDataAPICredential } from "../../apihooks/apihooks";
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(true);
   const [bgWhite, setBgWhite] = useState(false);
@@ -12,7 +13,7 @@ const Navbar = () => {
   const [isSignOptionOpen, setIsSignOptionOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (window.innerWidth <= 1024 && isMenuOpen === true) {
@@ -113,21 +114,22 @@ const Navbar = () => {
                   // onMouseOver={() => setIsSignOptionOpen(true)}
                   // onMouseLeave={() => setIsSignOptionOpen(false)}
                   onClick={() => {
-                    if(checkIsLoggedIn()){
+                    if (checkIsLoggedIn()) {
                       setIsSignOptionOpen(!isSignOptionOpen);
                       return;
                     }
 
-                    navigate('/signin')
-                  
+                    navigate("/signin");
                   }}
                   className="lg:p-5 pl-6 mb-5 lg:mb-0 lg:border-l border-neutral-200 space-x-2 cursor-pointer"
                 >
                   <span>
                     {/* <Link to={!checkIsLoggedIn()? "#" :"/signin"}> */}
-                      {
-                        checkIsLoggedIn()? <FontAwesomeIcon icon={faUser}/> :"Sign In"
-                      }
+                    {checkIsLoggedIn() ? (
+                      <FontAwesomeIcon icon={faUser} />
+                    ) : (
+                      "Sign In"
+                    )}
                     {/* </Link> */}
                   </span>
                   {checkIsLoggedIn() && (
@@ -147,6 +149,9 @@ const Navbar = () => {
                     {checkIsLoggedIn() && (
                       <LoggedInOption
                         setIsSignOptionOpen={setIsSignOptionOpen}
+                        navigate={navigate}
+                        set_menu={setMenuOpen}
+                        menu_state={isMenuOpen}
                       />
                     )}
                   </motion.div>
@@ -203,7 +208,10 @@ const LoggedInOption = (Props: Record<string, any>): any => {
           </li>
 
           <li className="p-3 w-44 lg:text-center lg:border-l lg:border-gray-300 lg:border-r">
-            <span className="w-full  text-white lg:text-gray-500 break-words">
+            <span
+              onClick={() => Logout(Props.navigate,Props.set_menu,Props.menu_state)}
+              className="w-full  text-white lg:text-gray-500 break-words"
+            >
               Logout
             </span>
           </li>
@@ -213,16 +221,21 @@ const LoggedInOption = (Props: Record<string, any>): any => {
   );
 };
 
-
-const checkIsLoggedIn = ():any=>{
-  
-  if(localStorage.getItem('checkprix'))
-  {
-    return true;
-  }
-
+const checkIsLoggedIn = (): any => {
+  if (localStorage.getItem("checkprix")) return true;
   return false;
+};
 
-
-
-}
+const Logout = async (navigate: Function,set_menu:Function,menu_state:boolean) => {
+  const response = await GetDataAPI(
+    `${process.env.REACT_APP_LOGOUT_API_URL}`
+  );
+  console.log(response)
+  if (response?.data?.is_success) {
+    localStorage.removeItem("checkprix");
+    if (window.innerWidth <= 1024 && menu_state === true) {
+      set_menu(false);
+    }
+    navigate("/");
+  }
+};

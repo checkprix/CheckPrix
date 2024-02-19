@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
-import { UploadProductInDb,updateProduct,validateForm } from "./methods/methods";
-import { upload } from "@testing-library/user-event/dist/upload";
-import { useGetData } from "../../apihooks/apihooks";
+import { UploadProductInDb,UpdateProduct,validateForm,validateFormUpdate } from "./methods/methods";
+import { GetDataAPI, PostDataApiCredentialAdmin, UpdateDataApiCredentialAdmin, useGetData } from "../../apihooks/apihooks";
 
 const ProductUploadForm = () => {
   const [uploadForm, setUploadForm] = useState<Record<string, any>>({});
@@ -29,9 +28,23 @@ const ProductUploadForm = () => {
   };
   const param: any = useParams();
   const GetProductById = async()=>{
+    if(!param?.id) return
     console.log(param.id)
-    const data =  await useGetData("http://localhost:4000/api/products/"+param.id);
+    const data =  await GetDataAPI(`${process.env.REACT_APP_PRODUCTS_API_URL}/${param.id}`);
+    const modified_data_object = {
+      ...data.data.product.details,
+      old_price:data.data.product.old_price,
+      new_price:data.data.product.new_price,
+      listing:data.data.product.listing,
+      id:data.data.product.id,
+      store_link:data.data.product.store_link,
+      created_at:data.data.product.created_at
+    }
     console.log(data)
+    setUploadForm(modified_data_object)
+    setPreviewURL(data.data.product.image[0].link);
+    setProduct_id(data.data.product.id);
+    
   }
 
 
@@ -43,7 +56,7 @@ const ProductUploadForm = () => {
   //create new product handler
   const UploadForm = async () => {
     try {
-      const res = await UploadProductInDb(uploadForm, file);
+      const res = await PostDataApiCredentialAdmin(uploadForm, file);
   
       if (res?.is_success) {setUploadForm({}); setFile(null); setPreviewURL(null); alert(res?.message);}
       else throw new Error(res?.message);
@@ -56,6 +69,23 @@ const ProductUploadForm = () => {
       }
     }
   };
+
+  //update form handler
+  const UpdateForm = async()=>{
+    try{
+      // if(!validateForm(uploadForm,file)){
+      //   alert("Fill all the field")
+      //   return;
+      // }
+      const res = await UpdateDataApiCredentialAdmin(uploadForm,file);
+      if(res?.is_success) alert(res.message);
+      else throw new Error(res?.message)
+    }
+    catch(err)
+    {
+      alert(err);
+    }
+  }
 
   // const deleteProduct = (id:number):Record<string,any>=>{
   //   return {
@@ -87,10 +117,14 @@ const ProductUploadForm = () => {
               className="bg-blue-500 border-neutral-200 border text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700"
               onClick={() => {
                 //validate form // so input should not be empty
-                //if form is valid then upload form
-                if(validateForm(uploadForm,file))
+                //if product_id is empty it means it's new product upload else it's updating product
+                if( product_id.length===0 && validateForm(uploadForm,file))
                 {
                   UploadForm()
+                }
+                else if(product_id.length!==0 && validateFormUpdate(uploadForm,file))
+                {
+                  UpdateForm()
                 }
                 else alert("Fill all the input")
               }}
@@ -148,6 +182,23 @@ const ProductUploadForm = () => {
                 className="mt-1 p-2 w-full border rounded-md"
                 placeholder="Enter listing"
                 value={(uploadForm?.listing)?uploadForm?.listing:""}
+                onChange={(e) => handleProductUpload(e)}
+              />
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="store_link"
+                className="block text-sm font-medium text-gray-600"
+              >
+                Store Link
+              </label>
+              <input required
+                type="text"
+                id="store_link"
+                className="mt-1 p-2 w-full border rounded-md"
+                placeholder="Enter store link"
+                value={(uploadForm?.store_link)?uploadForm?.store_link:""}
                 onChange={(e) => handleProductUpload(e)}
               />
             </div>
@@ -296,11 +347,11 @@ const ProductUploadForm = () => {
                 onChange={(e: any) => handleProductUpload(e)}
               >
                 <option value="">Select</option>
-                <option value="singleCore">Single Core</option>
-                <option value="dualCore">Dual Core</option>
-                <option value="quadCore">Quad Core</option>
-                <option value="hexaCore">Hexa Core</option>
-                <option value="octaCore">Octa Core</option>
+                <option value="Single Core">Single Core</option>
+                <option value="Dual Core">Dual Core</option>
+                <option value="Quad Core">Quad Core</option>
+                <option value="Hexa Core">Hexa Core</option>
+                <option value="Octa Core">Octa Core</option>
                 {/* Add more options as needed */}
               </select>
             </div>
@@ -363,8 +414,8 @@ const ProductUploadForm = () => {
                 onChange={(e: any) => handleProductUpload(e)}
               >
                 <option value="">Select</option>
-                <option value="supported">Supported</option>
-                <option value="notSupported">Not Supported</option>
+                <option value="Supported">Supported</option>
+                <option value="Not Supported">Not Supported</option>
               </select>
             </div>
 
@@ -417,9 +468,9 @@ const ProductUploadForm = () => {
                 onChange={(e: any) => handleProductUpload(e)}
               >
                 <option value="">Select</option>
-                <option value="single">Single SIM</option>
-                <option value="dual">Dual SIM</option>
-                <option value="hybrid">Hybrid</option>
+                <option value="Single">Single SIM</option>
+                <option value="Dual">Dual SIM</option>
+                <option value="Hybrid">Hybrid</option>
               </select>
             </div>
 
@@ -571,8 +622,8 @@ const ProductUploadForm = () => {
                 onChange={(e: any) => handleProductUpload(e)}
               >
                 <option value="">Select</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
             </div>
 
@@ -590,8 +641,8 @@ const ProductUploadForm = () => {
                 onChange={(e: any) => handleProductUpload(e)}
               >
                 <option value="">Select</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
             </div>
 
@@ -609,8 +660,8 @@ const ProductUploadForm = () => {
                 onChange={(e: any) => handleProductUpload(e)}
               >
                 <option value="">Select</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
             </div>
           </div>

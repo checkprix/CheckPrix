@@ -7,19 +7,31 @@ import Footer from "../footer/footer";
 import CurrentPage from "../common/currentPage/currentPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { useState,useEffect } from "react";
+import { GetDataAPICredential } from "../../apihooks/apihooks";
+import { getValueBykey } from "../../common_method/commonMethods";
+import NotFound from "../../assests/images/404-image.jpg"
 const DashBoard = (): any => {
 
+  //using as a flag to check data is fetched from server
+  const [isFavrouiteListIsFetched,setIsFavrouiteListIsFetched] = useState(false)
+  //favrouite list from server
+  const[favouriteList,setfavrouiteList] = useState<[]>([])
+
+  useEffect(()=>{
+      GetFavrouiteList(`${process.env.REACT_APP_FAVROUITE}`,setfavrouiteList,setIsFavrouiteListIsFetched)
+  },[])
   return (
     <>
       <div className="h-full flex flex-col items-center justify-between relative">
         <Navbar />
-
+    
         <div className="w-4/5 lg:mt-28">
           <CurrentPage parent={"Home"} child={"Dashboard"} />
         {/* hide NotAvailable component if data is not available */}
-          <NotAvailable />
+       { !isFavrouiteListIsFetched  && <NotAvailable image={NotFound}/> }
            {/* show Available component if data is not available */}
-          {/* <Available/> */}
+        {isFavrouiteListIsFetched && <Available list={favouriteList}/>}
         </div>
         
         <Footer />
@@ -30,17 +42,17 @@ const DashBoard = (): any => {
 
 export default DashBoard;
 
-const NotAvailable = (): any => {
+const NotAvailable = (Props:Record<string,any>): any => {
   return (
     <>
-      <div className="flex flex-col justify-center items-center w-full gap-4 mt-16">
+      <div className="flex flex-col justify-center items-center w-full gap-4 mt-16 pb-5">
         <span className="text-2xl border-b-2 border-orange-500 text-gray-500 w-fit uppercase">
           Not available
         </span>
         <div>
           <img
             className="h-36"
-            src="https://checkprix.net/images/404-image.jpg"
+            src={Props.image}
           />
         </div>
        <div>
@@ -61,7 +73,7 @@ const NotAvailable = (): any => {
 };
 
 
-const Available=():any=>{
+const Available=(Props:Record<string,any>):any=>{
 
     return (<>
     <div className="w-full flex justify-center items-center">
@@ -72,43 +84,47 @@ const Available=():any=>{
             className="lg:justify-start lg:w-4/5  p-5 flex flex-wrap md:justify-center  gap-2 lg:gap-3  overflow-hidden w-full h-full"
           >
             {/* Card here */}
-            <Link
-              className="w-full md:w-72 lg:w-96"
-              to={`/product-detail/${12}`}
-              target="_blank"
-            >
-              <Card
+            {Array.isArray(Props.list) && Props.list.map((item:Record<string,any>)=>{
+                return  <Card key={item.id}
                 hideLogoAndVisitStore={true}
                 hideDeletePriceAndDownArrow={true}
-                image={"https://checkprix.net/uploaded_Images/241347069.png"}
+                image={getValueBykey("image",item)[0]}
+                visitLink={getValueBykey("store_link",item)}
+                old_price={getValueBykey("old_price",item)}
+                new_price={getValueBykey("new_price",item)}
+                product_name={getValueBykey("product_name",item)}
+                brand={getValueBykey("manufacturer",item)}
+                id={getValueBykey("id",item)}
+                heart={true}
               />
-            </Link> 
-
-            <Link
-              className="w-full md:w-72 lg:w-96"
-              to={`/product-detail/${12}`}
-              target="_blank"
-            >
-              <Card
-                hideLogoAndVisitStore={true}
-                hideDeletePriceAndDownArrow={true}
-                image={"https://checkprix.net/uploaded_Images/241347069.png"}
-              />
-            </Link> 
-
-             <Link
-              className="w-full md:w-72 lg:w-96"
-              to={`/product-detail/${12}`}
-              target="_blank"
-            >
-              <Card
-                hideLogoAndVisitStore={true}
-                hideDeletePriceAndDownArrow={true}
-                image={"https://checkprix.net/uploaded_Images/241347069.png"}
-              />
-            </Link>
+              })
+            }
+            
+            
+             
           </motion.div>
         </div>
     
     </>)
+}
+
+
+
+const GetFavrouiteList = async(api:string,setfavrouiteList:Function,setIsFavrouiteListIsFetched:Function)=>{
+ try{
+  const res = await GetDataAPICredential(api);
+  console.log(res)
+    if(getValueBykey("is_success",res))
+    {
+      setIsFavrouiteListIsFetched(true);
+      const product = getValueBykey("products",res);
+      if(product?.length==0)setIsFavrouiteListIsFetched(false);
+      setfavrouiteList(product);
+    }
+ }
+ catch(err)
+ {
+  alert("Internal server error");
+ }
+
 }

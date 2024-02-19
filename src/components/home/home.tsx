@@ -7,9 +7,19 @@ import BlogCard from "../common/blogcard/blogCard";
 import Footer from "../footer/footer";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-// import Slider from "../common/slider/slider";
-import ReactSlider from "react-slider";
+import { useEffect, useState } from "react";
+import { getBlog } from "../blog/allblogs/methods/methods";
+import { GetProducts } from "../../common_method/commonMethods";
+
 const Home = (): any => {
+
+  const [blog_list,set_blog_list] = useState<Record<string,any>[]>([]);
+  const [lastest_phone_list,set_lastest_phone_list] = useState<Record<string,any>[]>([])
+  useEffect(()=>{
+      getBlog(1,set_blog_list);
+      GetProducts(1,set_lastest_phone_list);
+  },[])
+
   return (
     <>
       {/* Upper section which contains navbar and cover image and serach bar */}
@@ -46,26 +56,29 @@ const Home = (): any => {
         className="lg:justify-start lg:w-4/5  p-5 flex flex-wrap md:justify-center  gap-2 lg:gap-3  overflow-hidden w-full "
       >
         {/* Card here */}
-        <Link className="w-full md:w-72 lg:w-96" to={`/product-detail/${12}`} target="_blank">
-          <Card
-            hideLogoAndVisitStore={true}
-            hideDeletePriceAndDownArrow={true}
-            image={"https://checkprix.net/uploaded_Images/241347069.png"}
-          />
-        </Link>
-
-        <Link className="w-full md:w-72 lg:w-96" to={`/product-detail/${12}`} target="_blank">
-          <Card
-            hideLogoAndVisitStore={true}
-            hideDeletePriceAndDownArrow={true}
-            image={"https://checkprix.net/uploaded_Images/241347069.png"}
-          />
-        </Link>
+        {
+              Array.isArray(lastest_phone_list) && lastest_phone_list.map((item)=>{
+                return <Card key={item.id}
+                hideLogoAndVisitStore={true}
+                hideDeletePriceAndDownArrow={true}
+                image={item.image[0].link}
+                visitLink={item.store_link}
+                old_price={item.old_price}
+                new_price={item.new_price}
+                product_name={item.details.product_name}
+                brand={item.details.manufacturer}
+                id={item.id}
+              />
+            
+              })
+            }
 
 
       </motion.div>
       </div>
       {/* -------------Price Drop section end----------------*/}
+
+      {/* -------------Latest Phone section end----------------*/}
 
       <div className="flex flex-col items-center justify-center mt-5">
         <div className="w-4/5">
@@ -78,26 +91,30 @@ const Home = (): any => {
         className="lg:justify-start lg:w-4/5  p-5 flex flex-wrap md:justify-center  gap-2 lg:gap-3  overflow-hidden w-full"
       >
         {/* Card here */}
-        <Link className="w-full md:w-72 lg:w-96" to={`/product-detail/${12}`} target="_blank">
-          <Card
-         
-            image={"https://checkprix.net/uploaded_Images/241347069.png"}
-          />
-        </Link>
-
-        <Link className="w-full md:w-72 lg:w-96" to={`/product-detail/${12}`} target="_blank">
-          <Card
-          
-            image={"https://checkprix.net/uploaded_Images/241347069.png"}
-          />
-        </Link>
+        {
+              Array.isArray(lastest_phone_list) && lastest_phone_list.map((item)=>{
+                return  <Card key={item.id}
+                hideLogoAndVisitStore={true}
+                hideDeletePriceAndDownArrow={true}
+                image={item.image[0].link}
+                visitLink={item.store_link}
+                old_price={item.old_price}
+                new_price={item.new_price}
+                product_name={item.details.product_name}
+                brand={item.details.manufacturer}
+                id={item.id}
+              />
+              })
+            }
 
 
       </motion.div>
       </div>
 
       {/* blogPost here */}
-      <BlogPost />
+      <div>
+      <BlogPost blogList={blog_list}/>
+      </div>
       <div className="bottom-0 h-fit mt-16">
         <Footer />
       </div>
@@ -107,7 +124,7 @@ const Home = (): any => {
 
 export default Home;
 
-const BlogPost = (): any => {
+const BlogPost = ({blogList}:any): any => {
   return (
     <>
       <div className="flex flex-col items-center mt-16 bg-gray-100">
@@ -118,11 +135,16 @@ const BlogPost = (): any => {
           initial={{ marginTop: "50px", opacity: 0.5 }}
           whileInView={{ marginTop: 0, opacity: 1 }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="w-4/5 p-5 flex flex-wrap gap-5 lg:gap-3  justify-start pt-5"
+          className="w-4/5 p-5 flex flex-col lg:flex-row lg:flex-wrap  gap-5 lg:gap-3  justify-start pt-5"
         >
           {/* Card here */}
-          <BlogCard id={123} />
-          <BlogCard id={345} />
+          {
+            Array.isArray(blogList) && blogList.map((item,index)=>{
+              return  <BlogCard key={item.id} id={item.id} image={item.image} title={item.title} />
+            })
+          }
+         
+          {/* <BlogCard id={345} /> */}
         </motion.div>
       </div>
     </>

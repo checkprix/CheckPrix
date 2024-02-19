@@ -20,6 +20,8 @@ import BlogList from "../../adminPanel/blogList/blogList";
 import ProductList from "../../adminPanel/productList/productList";
 import ProductUploadForm from "../../adminPanel/createProduct/ProductUploadForm";
 import AdminLogin from "../../adminPanel/login/login";
+import ForgotPassword from "../forgetPassword/forgetPassword";
+import ResetPassword from "../resetPassword/ResetPassword";
 const Routers =():any=>{
 
     return (
@@ -33,6 +35,8 @@ const Routers =():any=>{
             <Route path="/product-detail/:id" element={<ProductDetail/>}/>
             <Route path="/signin" element={<SignIn/>}/>
             <Route path="price-drop" element={<PriceDrop/>}/>
+            <Route path="/forget-password" element={<ForgotPassword/>}/>
+            <Route path="/reset-password" element={<ResetPassword/>}/>
             <Route path="/dashboard" element={<DashBoard/>}/>
             <Route path="/change-password" element={<ChangePassword/>}/>
             <Route path="/products/:param" element = {<Products/>}/>

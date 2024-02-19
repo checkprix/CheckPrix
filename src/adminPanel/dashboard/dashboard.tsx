@@ -1,6 +1,4 @@
-import React from "react";
-import Navbar from "../navbar/navbar";
-import CreateBlog from "../createBlog/createBlog";
+
 import ProductList from "../productList/productList";
 const AdminDashboard = () => {
   return (

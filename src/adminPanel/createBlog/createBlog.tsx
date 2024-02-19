@@ -2,24 +2,19 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
+import { getBlogById, handleDelete, handleSavePost, updatePost } from "./methods/methods";
 const CreateBlog = (): any => {
   //param
   const param: any = useParams();
 
   //states
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [BlogId,setBlogId] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
   const [previewURL, setPreviewURL] = useState<string | null>(null);
+  const [formState,setFromState] = useState<Record<string,any>>({});
+  const [image_key,set_Image_key] = useState<string>("")
 
-  const handleSavePost = (): void => {
-    // Add your logic to save the blog post
-    console.log("Title:", title);
-    console.log("Description:", description);
-    console.log("Image:", image);
-    console.log("File:", file); // Handle the file here
-  };
+;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const selectedFile = e.target.files && e.target.files[0];
@@ -30,9 +25,19 @@ const CreateBlog = (): any => {
     }
   };
 
+  const formHandler = (e:any):void=>{
+    const {id,value} = e.target;
+    setFromState({
+      ...formState,
+      [id]:value
+    })
+  }
+
   useEffect(() => {
     //fecth api for blog id
     console.log(param?.id);
+    //get blog from id and set setting field preview image url and blog id
+    getBlogById(param.id,setFromState,setPreviewURL,set_Image_key,setBlogId);
   }, []);
 
   return (
@@ -44,7 +49,13 @@ const CreateBlog = (): any => {
         <div>
           <button
             className="bg-blue-500 border-neutral-200 border text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700"
-            onClick={handleSavePost}
+            onClick={()=>{
+              if(BlogId.length===0) handleSavePost(formState,file);
+              else{
+                console.log("yes")
+                updatePost(formState,file)
+              }
+            }}
           >
             Save Post
           </button>
@@ -52,8 +63,13 @@ const CreateBlog = (): any => {
 {
 
       (param?.id)?  <button
-            className="bg-red-500 border-neutral-200 border text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:red-blue-700"
-            onClick={()=>{}} // delete method implement here
+            className={`${(image_key.length!==0 && param?.id.leading!==0)?"bg-red-500":'bg-gray-500'}
+             border-neutral-200 border text-white py-2 px-4 rounded-md ${(image_key.length!==0 && param?.id.leading!==0)?"hover:bg-red-600":'hover:bg-gray-600'} focus:outline-none focus:ring focus:red-blue-700`}
+            onClick={()=>{
+              if(image_key.length!==0 && param?.id.length!==0)
+              handleDelete(param?.id,image_key);
+              
+            }} // delete method implement here
           >
             Delete
           </button> : ''
@@ -73,9 +89,26 @@ const CreateBlog = (): any => {
           id="title"
           className="mt-1 p-2 w-full  rounded-md outline-none border border-neutral-200"
           placeholder="Enter the title of your blog post"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={formState?.title}
+          onChange={(e) => formHandler(e)}
         />
+      </div>
+
+      <div className="mb-4">
+        <label
+          htmlFor="detail"
+          className="block text-sm font-medium text-gray-600"
+        >
+          Details
+        </label>
+        <textarea
+          id="detail"
+          className="mt-1 p-2 w-full rounded-md outline-none border border-neutral-200"
+          rows={6}
+          placeholder="Enter the details of your blog post"
+          value={formState?.detail}
+          onChange={(e) =>  formHandler(e)}
+        ></textarea>
       </div>
 
       <div className="mb-4">
@@ -90,8 +123,8 @@ const CreateBlog = (): any => {
           className="mt-1 p-2 w-full rounded-md outline-none border border-neutral-200"
           rows={14}
           placeholder="Enter the description of your blog post"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={formState?.description}
+          onChange={(e) =>  formHandler(e)}
         ></textarea>
       </div>
 

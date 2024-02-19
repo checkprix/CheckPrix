@@ -13,7 +13,7 @@ const StorageOption = (Props: Record<string, any>): any => {
             onClick={() => {
               selectOption(index, whichOptionSelected, setWhichOptionSelected);
             }}
-            className={`text-sm lg:text-base p-3 lg:p-5 w-24 uppercase border cursor-pointer
+            className={`text-sm lg:text-2xl p-3 lg:p-5 w-24 lg:w-28 uppercase border cursor-pointer
                     ${
                       whichOptionSelected[index]
                         ? "border-orange-500"
