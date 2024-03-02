@@ -212,6 +212,72 @@ const DeleteDataAPICredentialAdmin = async (
   }
 };
 
+const DeleteDataAPICredentialAdminJson = async (
+  apiString: string,
+ 
+): Promise<any | null> => {
+  try {
+    const response: AxiosResponse = await axios.delete(apiString, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response;
+  } catch (err) {
+    checkToken(err);
+    console.log(err);
+  }
+};
+
+const PostDataAPIAdminJson = async (
+  apiString: any,
+  data: any
+): Promise<any | null> => {
+  try {
+    const response: AxiosResponse = await axios.post(apiString, data, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.data;
+  } catch (err) {
+    checkToken(err);
+    console.error("Error in usePostData:", err);
+
+    // You can throw the error if you want to propagate it
+    // throw err;
+
+    return null;
+  }
+};
+
+const UpdateDataAPIAdminJson = async (
+  apiString: any,
+  data: any
+): Promise<any | null> => {
+  try {
+    const response: AxiosResponse = await axios.put(apiString, data, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.data;
+  } catch (err) {
+    checkToken(err);
+    console.error("Error in usePostData:", err);
+
+    // You can throw the error if you want to propagate it
+    // throw err;
+
+    return null;
+  }
+};
+
 export {
   useGetData,
   UpdateDataAPI,
@@ -224,4 +290,7 @@ export {
   UpdateDataApiCredentialAdmin,
   DeleteDataAPICredentialAdmin,
   GetDataAPIParam,
+  DeleteDataAPICredentialAdminJson,
+  PostDataAPIAdminJson,
+  UpdateDataAPIAdminJson
 };

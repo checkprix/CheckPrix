@@ -75,7 +75,7 @@ const ChangePassword = () => {
                     htmlFor="newpassword"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    New Passoword
+                    New Password
                   </label>
                 </div>
 
@@ -101,7 +101,7 @@ const ChangePassword = () => {
                     htmlFor="newpassword"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Confirm Passoword
+                    Confirm Password
                   </label>
                 </div>
 

@@ -1,27 +1,58 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { UpdateDataAPI } from "../../apihooks/apihooks";
+import { getValueBykey } from "../../common_method/commonMethods";
 
 const ResetPassword = () => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-const [showMessage,setMassage] = useState<boolean>(false)
-const [message,setMessage] = useState<string>('')
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showMessage, setMassage] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+
+  const param = useParams();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Add your logic to handle the submission, like updating the password
-    console.log('Submit password:', password);
-    console.log('Submit confirm password:', confirmPassword);
-    // Reset the form after submission
-    setPassword('');
-    setConfirmPassword('');
-    setMassage(true)
-    setMessage('Password has been reset. Now you are redirecting to login page')
+    console.log(param);
+
+    if (confirmPassword !== password || password.length < 8) {
+      setMassage(true);
+      setMessage(
+        "Confirm password and new password should be equal and length should be more than 8 characters"
+      );
+      return;
+    }
+
+    try {
+      // Reset the form after submission
+      const response = await UpdateDataAPI(
+        `${process.env.REACT_APP_FORGET_PASSWORD}`,
+        {
+          password: password,
+          token: param.param,
+        }
+      );
+      if (getValueBykey("is_success", response)) {
+        setPassword("");
+        setConfirmPassword("");
+        setMassage(true);
+        setMessage(
+          "Password has been reset. Now you are redirecting to login page"
+        );
+        window.location.href = "/signin";
+      }
+    } catch (err) {
+      setMessage("Internal server Error");
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Reset your password</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Reset your password
+          </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
@@ -69,7 +100,9 @@ const [message,setMessage] = useState<string>('')
             </button>
           </div>
         </form>
-        <div className={`text-center ${(showMessage)?'visible':'hidden'}`}>{message}</div>
+        <div className={`text-center ${showMessage ? "visible" : "hidden"}`}>
+          {message}
+        </div>
       </div>
     </div>
   );

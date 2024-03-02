@@ -8,6 +8,9 @@ import CurrentPage from "../common/currentPage/currentPage";
 import { useEffect, useState } from "react";
 import { GetProducts, getValueBykey } from "../../common_method/commonMethods";
 import { GetDataAPIParam } from "../../apihooks/apihooks";
+import { LoadMore } from "../../common_method/commonMethods";
+import Search from "../search/search";
+import Splinner from "../common/spinner/spinner";
 const Products = (Props: Record<string, any>): any => {
   const param = useParams();
   const Paragraph: Array<string> = [
@@ -19,9 +22,12 @@ const Products = (Props: Record<string, any>): any => {
 
   //fetch product from db and save in this state
   const [product_list, set_product_list] = useState<Record<string, any>[]>([]);
+  const [isFecthing, setIsFetching] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [allRecordFetched,setAllRecordFetched] = useState<boolean>(false)
   useEffect(() => {
-   // 
-    GetProductsHandler(1,set_product_list,Props?.showSearch,param.param)
+    //
+    GetProductsHandler(1, set_product_list, Props?.showSearch, param.param);
   }, []);
 
   return (
@@ -46,6 +52,9 @@ const Products = (Props: Record<string, any>): any => {
             transition={{ duration: 0.4, ease: "easeInOut" }}
             className="lg:justify-start lg:w-4/5  p-5 flex flex-wrap md:justify-center  gap-2 lg:gap-3  overflow-hidden w-full h-full"
           >
+            {
+              !Array.isArray(product_list) && <Splinner/>
+            }
             {/* Card here */}
             {Array.isArray(product_list) &&
               product_list.map((item) => {
@@ -54,7 +63,9 @@ const Products = (Props: Record<string, any>): any => {
                     key={item.id}
                     hideLogoAndVisitStore={true}
                     hideDeletePriceAndDownArrow={true}
-                    image={(item.image[0].link)? item.image[0].link:item.image.link}
+                    image={
+                      item.image[0].link ? item.image[0].link : item.image.link
+                    }
                     visitLink={item.store_link}
                     old_price={item.old_price}
                     new_price={item.new_price}
@@ -64,33 +75,63 @@ const Products = (Props: Record<string, any>): any => {
                   />
                 );
               })}
-            
           </motion.div>
         </div>
-        <Footer />
+        { Array.isArray(product_list) &&
+        <div className="h-auto" style={{display:(allRecordFetched)?'none':'block'}}>
+        <div className="flex justify-center" style={{display:(!Props?.showSearch)?'flex':'none'}}>
+          <button
+            onClick={async () => {
+              await setIsFetching(true);
+              await setPage((preState) => preState + 1);
+              LoadMore(
+                setPage,
+                set_product_list,
+                `${process.env.REACT_APP_PRODUCTS_API_URL}/page/${page+1}`,
+                false,
+                "products",
+                setAllRecordFetched
+              );
+              await setIsFetching(false);
+            }}
+            className="bg-orange-500 p-3 rounded-md text-white mt-2"
+          >
+            {!isFecthing ? "Load More" : "Loading..."}
+          </button>
+        </div>
+        </div>
+}
+        <div className="mt-3">
+          {" "}
+          <Footer />
+        </div>
       </div>
+     
     </>
   );
 };
 
 export default Products;
 
-const GetProductsHandler = async(page:number,set_product_list:Function,search:boolean,param:string|undefined)=>{
-try{
-
-    if(search)
-    {
-        const searched = await GetDataAPIParam(`${process.env.REACT_APP_SEARCH}`,param);
-        console.log(searched)
-        set_product_list(getValueBykey("products",searched));
-        return
+const GetProductsHandler = async (
+  page: number,
+  set_product_list: Function,
+  search: boolean,
+  param: string | undefined
+) => {
+  try {
+    if (search) {
+      const searched = await GetDataAPIParam(
+        `${process.env.REACT_APP_SEARCH}`,
+        param
+      );
+      console.log(searched);
+      set_product_list(getValueBykey("products", searched));
+      return;
     }
 
-  await GetProducts(1, set_product_list);
-  
-}
-catch(err)
-{
-  console.log(err);
-}
-}
+    await GetProducts(page, set_product_list);
+  } catch (err) {
+    console.log(err);
+  }
+};

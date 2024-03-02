@@ -5,10 +5,13 @@ import Footer from "../../footer/footer";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getBlog } from "./methods/methods";
+import { LoadMore } from "../../../common_method/commonMethods";
+import Splinner from "../../common/spinner/spinner";
 const Allblogs = () => {
   const [page_no, set_page_no] = useState<number>(1);
   const [blog_list, setBlog_list] = useState<Record<string, any>[]>([]);
-
+  const [isFecthing, setIsFetching] = useState<boolean>(false);
+  const [allRecordFetched,setAllRecordFetched] = useState<boolean>(false);
   useEffect(() => {
     //get blogs and set blog list state
     getBlog(page_no, setBlog_list);
@@ -28,31 +31,45 @@ const Allblogs = () => {
             <Line heading={"Blog posts"} />
           </div>
           <div className="w-4/5 p-5 flex flex-col  gap-5 lg:gap-3  justify-start pt-5 h-full">
+            {!Array.isArray(blog_list) && <Splinner/>}
             {/*BlogCard here */}
 
-            {blog_list?.map((item: Record<string, any>) => {
+            {Array.isArray(blog_list) && blog_list?.map((item: Record<string, any>) => {
               return (
                 <BlogCard
+                  key={item.id}
                   blogId={item.id}
                   title={item.title}
                   image={item.image}
                 />
               );
             })}
-            {/* <BlogCard
-              blogId={123}
-              title={"What’s the best smartphone to buy?"}
-              image={"https://checkprix.net/uploaded_Images/924655363.jpg"}
-            />
-            <BlogCard
-              blogId={12}
-              title={"What’s the best smartphone to buy?"}
-              image={Cover}
-            /> */}
-
           </div>
+          { Array.isArray(blog_list) &&
+          <div className="flex justify-center" style={{display:(allRecordFetched)?'none':'flex'}}>
+            <button
+              onClick={async () => {
+                await setIsFetching(true);
+                await set_page_no((preState) => preState + 1);
+                console.log(page_no)
+               await LoadMore(
+                  set_page_no,
+                  setBlog_list,
+                  `${process.env.REACT_APP_BLOGS_API_URL}/page/${page_no+1}`,
+                  false,
+                  "blogs",
+                  setAllRecordFetched
+                );
+                await setIsFetching(false);
+              }}
+              className="bg-orange-500 p-3 rounded-md text-white mt-2"
+            >
+              {!isFecthing ? "Load More" : "Loading..."}
+            </button>
+          </div>
+          }
         </div>
-        <div className="relative">
+        <div className="relative mt-3">
           <Footer />
         </div>
       </div>

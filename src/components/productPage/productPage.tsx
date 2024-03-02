@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { GetProductById } from "./methods/methods";
 import { getValueBykey } from "../../common_method/commonMethods";
+import { Button } from "flowbite-react";
 const ProductPage = (): any => {
   const { id } = useParams();
 
@@ -16,11 +17,17 @@ const ProductPage = (): any => {
   const [product, setProduct] = useState<Record<string, any>>({});
   useEffect(() => {
     GetProductById(id, setProduct);
+   
   }, []);
   //write code to fetch data for product
 
+  useEffect(()=>{
+    setWhichProductOptionSelected( <PriceSection store={product.store_info}/>)
+  },[product])
+
+
   const [whichProductOptionSelected, setWhichProductOptionSelected] = useState(
-    <PriceSection />
+    <PriceSection store={product.store_info}/>
   );
 
   return (
@@ -52,7 +59,7 @@ const MobileDescription = (Props: Record<string, any>): any => {
             className="object-cover w-fit lg:w-[250px]"
             src={`${
               Array.isArray(getValueBykey("image", Props))
-                ? getValueBykey("image", Props)[0]?.link
+                ? getValueBykey("image", Props)[0]
                 : ""
             }`}
             alt="Mobile image"
@@ -126,18 +133,48 @@ const Features = (Props: Record<string, any>): any => {
   );
 };
 
-const PriceSection = (): any => {
+const PriceSection = (Props:Record<string,any>): any => {
+  console.log(Props)
   return (
     <>
       <motion.div
         initial={{ marginLeft: "-250px", opacity: 0.5 }}
         whileInView={{ marginLeft: 0, opacity: 1 }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="bg-gray-100 h-48 flex justify-center items-center w-full"
+        className="bg-gray-100 w-full h-auto rounded-md"
       >
-        <span className=" text-center font-semibold text-4xl">
-          Coming Soon!
+     {
+       !Props.store && <span className="flex justify-center items-center  font-semibold text-4xl w-full h-48">
+         <span className="w-full text-center">Coming Soon!</span>
         </span>
+     }
+
+        {
+       Props.store &&  Props.store.map((item:any)=>{
+            return <div key={item.id} className="w-full flex p-3 lg:w-[1200px]">
+            <div className="flex justify-between h-32 flex-1 border bg-white border-gray-300">
+              <div className="flex justify-center flex-col h-full w-fit gap-2 pl-2">
+                <span className="h-12 w-fit"><img className="object-cover" src={item.logo}/></span>
+                <span className="flex justify-center">
+                  <Button className="bg-orange-500 ">
+                    <a href={(item.link=='')?'#':item.link}>Visit Store</a>
+                  </Button>
+                </span>
+              </div>
+              <div className="w-fit h-full flex items-center justify-between flex-col p-3 ">
+                <div className="w-fit font-semibold text-xl lg:pr-5">{item.name}</div>
+                <div className="w-fit text-blue-600 text-xl font-semibold lg:pr-5">{(item.price == 0)? 'N/A' : item.price+'Rs'}</div>
+              </div>
+            
+              
+            
+              </div>
+          </div>
+          })
+        }
+      
+        
+
       </motion.div>
     </>
   );
@@ -149,7 +186,7 @@ const ProductOptions = (Props: Record<string, any>): any => {
       <div className="flex text-xs p-3 sm:p-0 sm:text-sm md:text-xl justify-around lg:justify-start lg:pl-24 gap-4 pb-10 ">
         <span
           onClick={() => {
-            Props?.setWhichProductOptionSelected(<PriceSection />);
+            Props?.setWhichProductOptionSelected(<PriceSection store={Props.product.store_info}/>);
           }}
           className="border-b p-1 border-b-black cursor-pointer "
         >
@@ -167,7 +204,7 @@ const ProductOptions = (Props: Record<string, any>): any => {
         </span>
         <span
           onClick={() => {
-            Props?.setWhichProductOptionSelected(<SimilarProducts />);
+            Props?.setWhichProductOptionSelected(<SimilarProducts product={Props.product}/>);
           }}
           className="border-b p-1 border-b-black cursor-pointer"
         >
@@ -175,7 +212,7 @@ const ProductOptions = (Props: Record<string, any>): any => {
         </span>
       </div>
 
-      <div className="flex md:p-10 pb-10 ">
+      <div className="flex md:p-10 pb-10">
         {Props?.whichProductOptionSelected}
       </div>
     </>

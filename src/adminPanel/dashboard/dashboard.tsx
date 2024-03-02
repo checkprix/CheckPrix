@@ -1,4 +1,5 @@
 
+import Navbar from "../navbar/navbar";
 import ProductList from "../productList/productList";
 const AdminDashboard = () => {
   return (

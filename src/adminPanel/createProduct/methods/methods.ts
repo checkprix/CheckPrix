@@ -1,4 +1,5 @@
-import { PostDataApiCredentialAdmin, UpdateDataAPI } from "../../../apihooks/apihooks";
+import { GetDataAPICredentialAdmin, PostDataApiCredentialAdmin, UpdateDataAPI, UpdateDataApiCredentialAdmin } from "../../../apihooks/apihooks";
+import { getValueBykey } from "../../../common_method/commonMethods";
 const UploadProductInDb = async (
   form: Record<string, any>,
   file: File | null
@@ -9,7 +10,12 @@ const UploadProductInDb = async (
   const upload_form: FormData = new FormData();
 
   for (const [key, value] of Object.entries(form_object)) {
-    if (typeof value === "string") {
+    
+    if(Array.isArray(value))
+    {
+      continue;
+    }
+   else if (typeof value === "string") {
       upload_form.append(key, value);
     } else if (value instanceof Blob) {
       upload_form.append(key, value, `${key}.png`);
@@ -28,9 +34,9 @@ const UpdateProduct = async (
   file: File | null
 ): Promise<any> => {
   form["file"] = file;
-
+  console.log(form)
   //sending data to server for save in db
-  return await UpdateDataAPI(process.env.REACT_APP_PRODUCTS_API_URL, form);
+  return await UpdateDataApiCredentialAdmin(process.env.REACT_APP_PRODUCTS_API_URL, form);
 };
 
 const FormBuidler = (form: Record<string, any>, file: File | null) => {
@@ -52,12 +58,32 @@ const validateForm = (form: Record<string, any>, file: File | null) => {
   return true;
 };
 
-const validateFormUpdate = (form: Record<string, any>, file: File | null) => {
+const validateFormUpdate = (form: Record<string, any>) => {
   for (const [key, value] of Object.entries(form)) {
+    if(key === 'store') continue;
     if (value?.toString() === "") return false;
   }
 
   return true;
 };
 
-export { UploadProductInDb, UpdateProduct, validateForm, validateFormUpdate };
+
+const GetStore=async(setStore:Function,setHanleStore:Function)=>{
+  try{
+      const res = await GetDataAPICredentialAdmin(`${process.env.REACT_APP_STORE}`);
+      if(getValueBykey('is_success',res))
+      {
+        console.log(getValueBykey('store',res));
+        setStore(getValueBykey('store',res));
+       // setHanleStore(new Array(getValueBykey('store',res).length).fill({store_id:'',name:'',price:0}));
+     //  setHanleStore(getValueBykey('store',res));
+      }
+  }
+  catch(err)
+  {
+    alert("Internal server error !!!")
+  }
+}
+
+
+export { UploadProductInDb, UpdateProduct, validateForm, validateFormUpdate,GetStore};

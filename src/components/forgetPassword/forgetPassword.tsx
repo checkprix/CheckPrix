@@ -1,11 +1,30 @@
 import { useState } from "react";
+import { PostDataApiJSON } from "../../apihooks/apihooks";
+import { getValueBykey } from "../../common_method/commonMethods";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const [message,setMessage] = useState<string>("")
   const [showResetlink, setResetLink] = useState<boolean>(false);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setResetLink(true);
+    try{
+      setResetLink(true);
+      setMessage("Please we are sending reset link")
+    const response = await PostDataApiJSON(
+      `${process.env.REACT_APP_FORGET_PASSWORD}`,
+      { email: email }
+    );
+    if (getValueBykey("is_success", response)) {
+      setResetLink(true);
+      setMessage("Rest link has been sent to your exisitng email address \n check inbox or spam folder")
+    }
+  }
+  catch(err)
+  {
+    setMessage("Internal server Error");
+  }
+
     // Add your logic to handle the submission, like sending a reset password link to the provided email
     console.log("Submit email:", email);
     // Reset the form after submission
@@ -55,8 +74,9 @@ const ForgotPassword = () => {
           </div>
         </form>
         <div className={`text-center ${showResetlink ? "visible" : "hidden"}`}>
-          Rest link has been sent to your exisitng email address <br />
-          check inbox or spam folder
+          {
+            message
+          }
         </div>
       </div>
     </div>

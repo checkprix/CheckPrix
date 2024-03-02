@@ -77,6 +77,9 @@ const check_is_login_success = (is_login:boolean,navigate:Function)=>{
     navigate('/admin-dashboard');
     return;
   }
+  else{
+    alert("Credentials wrong")
+  }
 
 
 
