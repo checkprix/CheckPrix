@@ -66,7 +66,7 @@ const PriceDrop = (): any => {
           !Array.isArray(product_list) && <Spinner/>
         }
         { Array.isArray(product_list) &&
-        <div className="flex justify-center" style={{display:(allRecordFetched)?'none':'block'}}>
+        <div className="flex justify-center p-3" style={{display:(allRecordFetched)?'none':'block'}}>
             <button
               onClick={async () => {
                 await setIsFetching(true);

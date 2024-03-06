@@ -141,7 +141,7 @@ const uploadStore=async(store_name:String,file:File|null,store:any,setStore:Func
   console.log(store_name,file);
   try{
       alert("Uploading please wait..!!!")
- const response = await PostDataApiCredentialAdmin('http://localhost:4000/api/store',{
+ const response = await PostDataApiCredentialAdmin(`${process.env.REACT_APP_STORE}`,{
     name:store_name,
     file:file
   })
@@ -161,7 +161,7 @@ catch(err)
 const getStore = async(setStore:Function)=>{
   try
   {
-   const res = await GetDataAPICredentialAdmin('http://localhost:4000/api/store');
+   const res = await GetDataAPICredentialAdmin(`${process.env.REACT_APP_STORE}`);
   if(getValueBykey('is_success',res))
   {
     console.log(res)
@@ -178,7 +178,7 @@ catch(err)
 const DeleteStore=async(id:string,image_key:string,store: Record<string, any>[],set_store:Function)=>{
   try{
     if(!window.confirm("Are you sure ?")) return;
-    const res = await DeleteDataAPICredentialAdmin('http://localhost:4000/api/store', id, image_key);
+    const res = await DeleteDataAPICredentialAdmin(`${process.env.REACT_APP_STORE}`, id, image_key);
     if (getValueBykey("is_success", res)) {
       // Filter out the item with the specified ID from the store array
       const updatedStore = store.filter((item:any) => item.id !== id);

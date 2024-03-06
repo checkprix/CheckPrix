@@ -69,7 +69,8 @@ const Home = (): any => {
           {!Array.isArray(priceDrop_phone_list) && <Splinner />}
           {/* Card here */}
           {Array.isArray(priceDrop_phone_list) &&
-            priceDrop_phone_list.map((item) => {
+            priceDrop_phone_list.map((item,index) => {
+              if(index > 4) return ""
               return (
                 <Card
                   key={item.id}
@@ -104,7 +105,8 @@ const Home = (): any => {
           {!Array.isArray(lastest_phone_list) && <Splinner />}
           {/* Card here */}
           {Array.isArray(lastest_phone_list) &&
-            lastest_phone_list.map((item) => {
+            lastest_phone_list.map((item:Record<string,any>,index:number) => {
+              if(index > 4) return ""
               return (
                 <Card
                   key={item.id}
@@ -155,6 +157,7 @@ const BlogPost = ({ blogList }: any): any => {
           {/* Card here */}
           {Array.isArray(blogList) &&
             blogList.map((item, index) => {
+              if(index > 4) return "";
               return (
                 <BlogCard
                   key={item.id}
