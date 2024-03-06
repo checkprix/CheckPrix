@@ -4,6 +4,7 @@ import {
   DeleteDataAPI,
   UpdateDataAPI,
   DeleteDataAPICredentialAdmin,
+  UpdateDataApiCredentialAdmin,
 } from "../../../apihooks/apihooks";
 import { getValueBykey } from "../../../common_method/commonMethods";
 
@@ -61,7 +62,7 @@ const getBlogById = async (
 ): Promise<any> => {
   try {
     if (id.length === 0) return;
-   await set_loading((preState:boolean)=>!preState)
+    set_loading((preState:boolean)=> true)
     const blog = await GetDataAPI(
       `${process.env.REACT_APP_BLOGS_API_URL}/${id}`
     );
@@ -70,9 +71,10 @@ const getBlogById = async (
     set_blog_id(blog.data.blog.id);
     setFromState(blog.data.blog);
     setPreviewUrl(blog.data.blog.image[0].link);
-    set_image_key(blog.data.blog.image[0].link);
-    await set_loading((preState:boolean)=>!preState)
+    set_image_key(blog.data.blog.image[0].key);
+     set_loading((preState:boolean)=> false)
   } catch (err) {
+    console.log(err)
     return "";
   }
   return { status: 200 };
@@ -111,7 +113,9 @@ const updatePost = async (
 
   formState["file"] = file;
 
-  const is_updated = await UpdateDataAPI(
+  console.log(formState)
+
+  const is_updated = await UpdateDataApiCredentialAdmin(
     process.env.REACT_APP_BLOGS_API_URL,
     formState
   );

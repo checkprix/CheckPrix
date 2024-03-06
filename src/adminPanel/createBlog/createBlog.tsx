@@ -21,7 +21,7 @@ const CreateBlog = (): any => {
   const [image_key, set_Image_key] = useState<string>("");
   const [is_blog_deleteting, set_is_blog_deleteting] = useState<boolean>(false);
   const [is_blog_saving, set_is_blog_saving] = useState<boolean>(false);
-  const [is_loading, set_is_loading] = useState<boolean>(false);
+  const [is_loading, set_is_loading] = useState<boolean>(true);
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const selectedFile = e.target.files && e.target.files[0];
 
@@ -41,7 +41,7 @@ const CreateBlog = (): any => {
 
   useEffect(() => {
 
-    set_is_loading(true)
+    set_is_loading(false)
 
     //fecth api for blog id
     console.log(param?.id);
@@ -85,7 +85,7 @@ const CreateBlog = (): any => {
                 !is_blog_deleteting
               ) {
                 await set_is_blog_saving(true);
-                updatePost(formState, file);
+               await updatePost(formState, file);
                 await set_is_blog_saving(false);
               }
             }}

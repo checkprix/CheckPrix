@@ -85,10 +85,11 @@ const Available=(Props:Record<string,any>):any=>{
           >
             {/* Card here */}
             {Array.isArray(Props.list) && Props.list.map((item:Record<string,any>)=>{
+              if(!item) return ""
                 return  <Card key={item.id}
                 hideLogoAndVisitStore={true}
                 hideDeletePriceAndDownArrow={true}
-                image={getValueBykey("image",item)[0]}
+                image={getValueBykey("image",item)[0] || ''}
                 visitLink={getValueBykey("store_link",item)}
                 old_price={getValueBykey("old_price",item)}
                 new_price={getValueBykey("new_price",item)}
