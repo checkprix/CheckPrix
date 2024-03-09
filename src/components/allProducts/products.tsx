@@ -10,7 +10,8 @@ import { GetProducts, getValueBykey } from "../../common_method/commonMethods";
 import { GetDataAPIParam } from "../../apihooks/apihooks";
 import { LoadMore } from "../../common_method/commonMethods";
 import Search from "../search/search";
-import Splinner from "../common/spinner/spinner";
+import Spinner from "../common/spinner/spinner";
+
 const Products = (Props: Record<string, any>): any => {
   const param = useParams();
   const Paragraph: Array<string> = [
@@ -21,10 +22,12 @@ const Products = (Props: Record<string, any>): any => {
   ];
 
   //fetch product from db and save in this state
-  const [product_list, set_product_list] = useState<Record<string, any>[]>([]);
+  const [product_list, set_product_list] = useState<
+    Record<string, any>[] | null
+  >(null);
   const [isFecthing, setIsFetching] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
-  const [allRecordFetched,setAllRecordFetched] = useState<boolean>(false)
+  const [allRecordFetched, setAllRecordFetched] = useState<boolean>(false);
   useEffect(() => {
     //
     GetProductsHandler(1, set_product_list, Props?.showSearch, param.param);
@@ -50,11 +53,9 @@ const Products = (Props: Record<string, any>): any => {
             initial={{ marginLeft: "-250px", opacity: 0.5 }}
             whileInView={{ marginLeft: 0, opacity: 1 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="lg:justify-start lg:w-4/5  p-5 flex flex-wrap md:justify-center  gap-2 lg:gap-3  overflow-hidden w-full h-full"
+            className="lg:justify-start lg:w-4/5  p-5 flex flex-wrap sm:justify-center  gap-2 lg:gap-3 overflow-hidden w-full h-full"
           >
-            {
-              !Array.isArray(product_list) && <Splinner/>
-            }
+            {!Array.isArray(product_list) && <Spinner />}
             {/* Card here */}
             {Array.isArray(product_list) &&
               product_list.map((item) => {
@@ -77,36 +78,44 @@ const Products = (Props: Record<string, any>): any => {
               })}
           </motion.div>
         </div>
-        { Array.isArray(product_list) &&
-        <div className="h-auto" style={{display:(allRecordFetched)?'none':'block'}}>
-        <div className="flex justify-center" style={{display:(!Props?.showSearch)?'flex':'none'}}>
-          <button
-            onClick={async () => {
-              await setIsFetching(true);
-              await setPage((preState) => preState + 1);
-              LoadMore(
-                setPage,
-                set_product_list,
-                `${process.env.REACT_APP_PRODUCTS_API_URL}/page/${page+1}`,
-                false,
-                "products",
-                setAllRecordFetched
-              );
-              await setIsFetching(false);
-            }}
-            className="bg-orange-500 p-3 rounded-md text-white mt-2"
+        {Array.isArray(product_list) && (
+          <div
+            className="h-auto"
+            style={{ display: allRecordFetched ? "none" : "block" }}
           >
-            {!isFecthing ? "Load More" : "Loading..."}
-          </button>
-        </div>
-        </div>
-}
-        <div className="mt-3">
-          {" "}
+            <div
+              className="flex justify-center"
+              style={{ display: !Props?.showSearch ? "flex" : "none" }}
+            >
+              <button
+                onClick={async () => {
+                  await setIsFetching(true);
+                  await setPage((preState) => preState + 1);
+                  LoadMore(
+                    setPage,
+                    set_product_list,
+                    `${process.env.REACT_APP_PRODUCTS_API_URL}/page/${
+                      page + 1
+                    }`,
+                    false,
+                    "products",
+                    setAllRecordFetched
+                  );
+                  await setIsFetching(false);
+                }}
+                className="bg-orange-500 p-3 rounded-md text-white mt-2"
+              >
+                {!isFecthing ? "Load More" : "Loading..."}
+              </button>
+            </div>
+          </div>
+        )}
+        {isFecthing && <Spinner />}
+        {allRecordFetched && "No more Products"}
+        <div className="mt-3 w-full">
           <Footer />
         </div>
       </div>
-     
     </>
   );
 };

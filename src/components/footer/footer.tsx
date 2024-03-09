@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import FLAG from "../../assests/flag/255px-Flag_of_Mauritius.png"
 const Footer = (): any => {
   return (
     <>
@@ -58,23 +59,23 @@ const Footer = (): any => {
             <div className="flex">
               <p className="mr-1 text-white">Phone:</p>
               <a
-                href="tel:850-123-5021"
+                href="tel:+230 5725 1726"
                 aria-label="Our phone"
                 title="Our phone"
                 className="transition-colors duration-300 text-deep-purple-accent-400 hover:text-deep-purple-800"
               >
-                850-123-5021
+                +230 5725 1726
               </a>
             </div>
             <div className="flex">
               <p className="mr-1 text-white">Email:</p>
               <a
-                href="mailto:info@lorem.mail"
+                href="mailto:checkprix.mu@gmail.com"
                 aria-label="Our email"
                 title="Our email"
                 className="transition-colors duration-300 text-deep-purple-accent-400 hover:text-deep-purple-800"
               >
-                info@lorem.mail
+                checkprix.mu@gmail.com
               </a>
             </div>
             <div className="flex">
@@ -87,7 +88,7 @@ const Footer = (): any => {
                 title="Our address"
                 className="transition-colors duration-300 text-deep-purple-accent-400 hover:text-deep-purple-800"
               >
-                312 Lovely Street, NY
+                Mauritius
               </a>
             </div>
           </div>
@@ -109,7 +110,7 @@ const Footer = (): any => {
                 </svg>
               </a>
               <a
-                href="/"
+                href="https://www.instagram.com/checkprix.mu"
                 className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 <svg
@@ -122,7 +123,7 @@ const Footer = (): any => {
                 </svg>
               </a>
               <a
-                href="/"
+                href="https://www.facebook.com/checkprix"
                 className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 <svg
@@ -135,15 +136,15 @@ const Footer = (): any => {
               </a>
             </div>
             <p className="mt-4 text-sm text-white">
-              Bacon ipsum dolor amet short ribs pig sausage prosciutto chicken
-              spare ribs salami.
+              Follow us on your favrouite social media platfroms to get 
+              all new updates.
             </p>
           </div>
         </div>
         <Disclaimer />
         <div className="flex flex-col-reverse justify-between pt-5 pb-10 border-t lg:flex-row">
           <p className="text-sm text-white">
-            {`© Copyright ${new Date().getFullYear()} Lorem Inc. All rights reserved.`}
+            {`© Copyright ${new Date().getFullYear()} Checkprix Inc. All rights reserved.`}
           </p>
           <p className="text-sm text-white items-center flex gap-2">
             <span>Made with</span>
@@ -151,8 +152,8 @@ const Footer = (): any => {
             <span>in</span>
             <img
               className="h-3"
-              src="https://checkprix.net/images/255px-Flag_of_Mauritius.png"
-              alt="image"
+              src={FLAG}
+              alt="Flag"
             />
           </p>
           <ul className="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">

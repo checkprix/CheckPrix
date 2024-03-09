@@ -16,12 +16,12 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (window.innerWidth <= 1024 && isMenuOpen === true) {
+    if (window.innerWidth < 1024 && isMenuOpen === true) {
       setMenuOpen(false);
     }
 
     window.addEventListener("resize", () => {
-      if (window.innerWidth <= 1024) {
+      if (window.innerWidth < 1024) {
         setMenuOpen(false);
       } else {
         setMenuOpen(true);
@@ -38,7 +38,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className=" w-full lg:fixed top-0 bg-transparent">
+      <nav className="w-full lg:fixed top-0 bg-transparent z-50">
         <motion.div
           animate={{ backgroundColor: bgWhite ? "white" : "transparent" }}
           className="transition-all"
@@ -49,7 +49,7 @@ const Navbar = () => {
           `}
           >
             <div className="lg:w-fit p-5 text-xl flex justify-between">
-              <span className="https://checkprix.net/images/logo.png">
+              <span className="">
                 <Link to={"/"}>
                   <img
                     src={Logo}
@@ -233,7 +233,7 @@ const Logout = async (navigate: Function,set_menu:Function,menu_state:boolean) =
   console.log(response)
   if (response?.data?.is_success) {
     localStorage.removeItem("checkprix");
-    if (window.innerWidth <= 1024 && menu_state === true) {
+    if (window.innerWidth < 1024 && menu_state === true) {
       set_menu(false);
     }
     navigate("/");

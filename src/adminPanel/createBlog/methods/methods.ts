@@ -48,7 +48,11 @@ const getBlog = async (set_state_of_blog: Function): Promise<any> => {
     `${process.env.REACT_APP_BLOGS_API_URL}/admin/page/1`
   );
   if (blogs?.status === 401) return blogs;
+  if(getValueBykey("blogs", blogs) && getValueBykey("blogs", blogs).length === 0)
+  set_state_of_blog(null);
+  else
   set_state_of_blog(getValueBykey("blogs", blogs) || null);
+  //optional return
   return { status: 200 };
 };
 
@@ -77,6 +81,7 @@ const getBlogById = async (
     console.log(err)
     return "";
   }
+  //optional return
   return { status: 200 };
 };
 
@@ -95,6 +100,7 @@ const handleDelete = async (id: string, image_key: string): Promise<any> => {
       alert("Blog delete !!!");
       window.history.back();
     }
+    //optional return
     return { status: 200 };
   } catch (err) {
     alert("Internal server error");
@@ -123,6 +129,7 @@ const updatePost = async (
   if (is_updated?.is_success) {
     alert("Blog Updated!!!");
   }
+  //optional return
   return { status: 200 };
 };
 

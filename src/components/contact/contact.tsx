@@ -11,7 +11,7 @@ const Contact = (): any => {
             }} className="flex flex-col justify-between h-full bg-blend-overlay bg-gray-200 object-cover bg-no-repeat bg-cover">
                <Navbar />
                 <div className="mt-28 pl-3 lg:pl-16"> 
-                 <CurrentPage parent={"Home"} child={"Abouts us"}/></div>
+                 <CurrentPage parent={"Home"} child={"Contact"}/></div>
                 <section className="bg-white shadow-md">
               
                     <div className="container px-6 py-12 mx-auto">
@@ -50,7 +50,7 @@ const Contact = (): any => {
 
                                 <h2 className="mt-4 text-lg font-medium text-gray-800 dark:text-white">Office</h2>
                                 <p className="mt-2 text-gray-500 dark:text-gray-400">Come say hello at our office HQ.</p>
-                                <p className="mt-2 text-orange-500 ">100 Smith Street Collingwood VIC 3066 AU</p>
+                                <p className="mt-2 text-orange-500 ">Mauritius</p>
                             </div>
 
                             <div>
@@ -64,7 +64,7 @@ const Contact = (): any => {
 
                                 <h2 className="mt-4 text-lg font-medium text-gray-800 dark:text-white">Phone</h2>
                                 <p className="mt-2 text-gray-500 dark:text-gray-400">Mon-Fri from 8am to 5pm.</p>
-                                <p className="mt-2 text-orange-500 ">+230-57251726</p>
+                                <p className="mt-2 text-orange-500 ">+230 5725 1726</p>
                             </div>
                         </div>
                     </div>

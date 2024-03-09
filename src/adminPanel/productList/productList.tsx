@@ -25,8 +25,9 @@ const ProductList = () => {
         `${process.env.REACT_APP_PRODUCTS_API_URL}/admin/${page}`
       );
 
-      console.log(data);
-
+      if(getValueBykey("products", data) && getValueBykey("products", data).length === 0)
+      setData(null);
+      else
       setData(getValueBykey("products", data) || null);
     } catch (err) {
       console.log("Internal server error or token expired", err); // Handle error
@@ -168,7 +169,7 @@ const ProductList = () => {
           </tbody>
         </table>
       </div>
-      {!Array.isArray(data) && <Splinner />}
+ 
       { Array.isArray(data) &&
         <div
           className="flex justify-center w-full"
@@ -194,6 +195,8 @@ const ProductList = () => {
           </button>
         </div>
       }
+           {!Array.isArray(data) && <Splinner />}
+           {allRecordFetched && <div className="text-center w-full">No products</div>}
     </>
   );
 };
