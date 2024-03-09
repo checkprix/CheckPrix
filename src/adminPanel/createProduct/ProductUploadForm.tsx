@@ -95,9 +95,11 @@ const ProductUploadForm = () => {
   const UploadForm = async () => {
     try {
       const Append_store_array_in_From = { ...uploadForm };
-      Append_store_array_in_From["store"] = handleStoreState;
-      const res = await UploadProductInDb(Append_store_array_in_From,file);
+      Append_store_array_in_From["store"] = tempStore;
+      console.log(Append_store_array_in_From);
+     const res = await UploadProductInDb(Append_store_array_in_From,file);
 
+     
       
       if ((getValueBykey('is_success',res))) {
         setUploadForm({});

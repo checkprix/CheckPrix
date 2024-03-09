@@ -9,7 +9,7 @@ const Card = (Props: Record<string, any>): any => {
   const [add_to_favrouite, set_add_to_favrouite] = useState<boolean>((Props?.heart)?true:false);
   return (
     <>
-      <div className=" lg:w-96 w-full overflow-hidden  p-5 flex flex-col gap-5 border rounded-md border-gray-400">
+      <div className=" lg:w-fit w-full overflow-hidden  p-5 flex flex-col gap-5 border rounded-md border-gray-400 ">
         <div className="w-full text-center text-xl font-semibold">
           <div className="relative flex justify-center">
             <span>{Props.brand}</span>
@@ -27,7 +27,7 @@ const Card = (Props: Record<string, any>): any => {
           </div>
         </div>
 
-        <div className="w-full flex justify-center items-center   lg:w-96 cursor-pointer select-none">
+        <div className="w-full flex justify-center items-center lg:w-80 cursor-pointer select-none">
           <Link to={`/product-detail/${Props.id}`} target="_blank" className="select-none">
             <img
               className="h-52 w-fit object-cover select-none"

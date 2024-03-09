@@ -37,12 +37,14 @@ const Home = (): any => {
       {/* Upper section which contains navbar and cover image and serach bar */}
 
       <div
-        style={{ backgroundImage: `url(${Cover})` }}
-        className="w-full lg:h-3/5 h-fit bg-cover relative "
+        style={{ backgroundImage: `url(${Cover})`}}
+        className="w-full flex flex-col justify-center items-center   h-[600px] bg-cover relative overflow-y-auto "
       >
-        <Navbar />
+        <div className="w-full absolute top-0">
+          <Navbar />
+        </div>
 
-        <div className="w-full h-full pt-40 pb-40 lg:pb-0 lg:pt-0 p-5 flex flex-col justify-center items-center">
+        <div className="w-full h-[600px] pt-40 pb-40 lg:pb-0 lg:pt-0 p-5 flex flex-col justify-center items-center ">
           <SearchBar />
         </div>
       </div>
@@ -69,8 +71,8 @@ const Home = (): any => {
           {!Array.isArray(priceDrop_phone_list) && <Splinner />}
           {/* Card here */}
           {Array.isArray(priceDrop_phone_list) &&
-            priceDrop_phone_list.map((item,index) => {
-              if(index > 4) return ""
+            priceDrop_phone_list.map((item, index) => {
+              if (index > 3) return "";
               return (
                 <Card
                   key={item.id}
@@ -90,7 +92,7 @@ const Home = (): any => {
       </div>
       {/* -------------Price Drop section end----------------*/}
 
-      {/* -------------Latest Phone section end----------------*/}
+      {/* -------------Latest Phone section start----------------*/}
 
       <div className="flex flex-col items-center justify-center mt-5">
         <div className="w-4/5">
@@ -105,29 +107,30 @@ const Home = (): any => {
           {!Array.isArray(lastest_phone_list) && <Splinner />}
           {/* Card here */}
           {Array.isArray(lastest_phone_list) &&
-            lastest_phone_list.map((item:Record<string,any>,index:number) => {
-              if(index > 4) return ""
-              return (
-                <Card
-                  key={item.id}
-                  hideLogoAndVisitStore={true}
-                  hideDeletePriceAndDownArrow={true}
-                  image={item.image[0].link}
-                  visitLink={item.store_link}
-                  old_price={item.old_price}
-                  new_price={item.new_price}
-                  product_name={item.details.product_name}
-                  brand={item.details.manufacturer}
-                  id={item.id}
-                />
-              );
-            })}
+            lastest_phone_list.map(
+              (item: Record<string, any>, index: number) => {
+                if (index > 3) return "";
+                return (
+                  <Card
+                    key={item.id}
+                    hideLogoAndVisitStore={true}
+                    hideDeletePriceAndDownArrow={true}
+                    image={item.image[0].link}
+                    visitLink={item.store_link}
+                    old_price={item.old_price}
+                    new_price={item.new_price}
+                    product_name={item.details.product_name}
+                    brand={item.details.manufacturer}
+                    id={item.id}
+                  />
+                );
+              }
+            )}
         </motion.div>
       </div>
 
       {/* blogPost here */}
       <div>
-       
         <BlogPost blogList={blog_list} />
       </div>
       <div className="bottom-0 h-fit mt-16">
@@ -142,7 +145,6 @@ export default Home;
 const BlogPost = ({ blogList }: any): any => {
   return (
     <>
-    
       <div className="flex flex-col items-center mt-16 bg-gray-100">
         <div className="w-4/5 pt-5">
           <Line heading={"Blog posts"} />
@@ -153,11 +155,11 @@ const BlogPost = ({ blogList }: any): any => {
           transition={{ duration: 0.4, ease: "easeInOut" }}
           className="w-4/5 p-5 flex flex-col lg:flex-row lg:flex-wrap  gap-5 lg:gap-3  justify-start pt-5"
         >
-           {!Array.isArray(blogList) && <Splinner />}
+          {!Array.isArray(blogList) && <Splinner />}
           {/* Card here */}
           {Array.isArray(blogList) &&
             blogList.map((item, index) => {
-              if(index > 4) return "";
+              if (index > 4) return "";
               return (
                 <BlogCard
                   key={item.id}

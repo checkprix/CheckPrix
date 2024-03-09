@@ -5,6 +5,7 @@ import { PostDataApiJSON } from "../../apihooks/apihooks";
 import { useNavigate } from "react-router-dom";
 import Notification from "../common/notification/notification";
 import { Link } from "react-router-dom";
+import Logo from "../../assests/logo/logo.png"
 const SignIn = () => {
   const [toggle, setToggle] = useState(false);
   const [password, setPassword] = useState("");
@@ -25,7 +26,7 @@ const SignIn = () => {
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               className="mx-auto h-10 w-auto"
-              src="https://checkprix.net/images/logo.png"
+              src={Logo}
               alt="Your Company"
             />
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
