@@ -15,7 +15,7 @@ import {
   GetDataAPI,
   PostDataApiCredentialAdmin,
 
-} from "../../apihooks/apihooks";
+} from "../../apiMethods/apihooks";
 import StoreComponent from "./storeSubComponent/storeSubCompoent";
 import { getValueBykey } from "../../common_method/commonMethods";
 import { Spinner } from "flowbite-react";

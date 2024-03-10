@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
-import { DeleteDataAPICredentialAdmin, GetDataAPICredentialAdmin, PostDataApiCredentialAdmin } from "../../apihooks/apihooks";
+import { DeleteDataAPICredentialAdmin, GetDataAPICredentialAdmin, PostDataApiCredentialAdmin } from "../../apiMethods/apihooks";
 import { getValueBykey } from "../../common_method/commonMethods";
+import Navbar from "../navbar/navbar";
 const Store = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const selectedFile = e.target.files && e.target.files[0];
@@ -24,6 +25,8 @@ const Store = () => {
   },[])
 
   return (
+    <>
+    <Navbar/>
     <div className="overflow-x-auto h-fit p-5">
       <div className="w-full flex justify-center items-center">
         <div className="flex items-center mr-4">
@@ -131,6 +134,7 @@ const Store = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 

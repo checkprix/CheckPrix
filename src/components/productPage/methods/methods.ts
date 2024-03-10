@@ -1,4 +1,4 @@
-import { GetDataAPI } from "../../../apihooks/apihooks"
+import { GetDataAPI } from "../../../apiMethods/apihooks"
 
 const GetProductById = async (id:string|undefined,set_product:Function)=>{
     if(!id) return;

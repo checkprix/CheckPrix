@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 const BlogCard = (Props:Record<string,any>) => {
     return (<>
         <div className="w-full lg:w-[520px]  flex flex-col shadow-md hover:shadow-xl transition-all rounded-md">
-            <div className="lg:p-3 rounded-md flex justify-center w-full  h-80">
-                <img className="object-cover  overflow-hidden"
+            <div className="lg:p-3 rounded-md flex justify-center w-full h-fit lg:h-80">
+                <img className="object-contain lg:object-cover overflow-hidden w-full"
                     src={Props.image} alt="blogImage" />
             </div>
             <div className="flex flex-col justify-center items-center gap-3 p-3">

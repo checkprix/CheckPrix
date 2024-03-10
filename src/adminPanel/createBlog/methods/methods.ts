@@ -5,7 +5,7 @@ import {
   UpdateDataAPI,
   DeleteDataAPICredentialAdmin,
   UpdateDataApiCredentialAdmin,
-} from "../../../apihooks/apihooks";
+} from "../../../apiMethods/apihooks";
 import { getValueBykey } from "../../../common_method/commonMethods";
 
 const handleSavePost = async (

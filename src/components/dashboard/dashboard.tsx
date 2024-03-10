@@ -8,7 +8,7 @@ import CurrentPage from "../common/currentPage/currentPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useState,useEffect } from "react";
-import { GetDataAPICredential } from "../../apihooks/apihooks";
+import { GetDataAPICredential } from "../../apiMethods/apihooks";
 import { getValueBykey } from "../../common_method/commonMethods";
 import NotFound from "../../assests/images/404-image.jpg"
 const DashBoard = (): any => {

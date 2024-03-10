@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../../../src/assests/logo/logo.png";
-import { GetDataAPI, GetDataAPICredential } from "../../apihooks/apihooks";
+import { GetDataAPI, GetDataAPICredential } from "../../apiMethods/apihooks";
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(true);
   const [bgWhite, setBgWhite] = useState(false);

@@ -1,4 +1,4 @@
-import { PostDataApiJSON } from "../../../apihooks/apihooks"
+import { PostDataApiJSON } from "../../../apiMethods/apihooks"
 
 const login = async(email:string,password:string): Promise<any> =>{
     try{

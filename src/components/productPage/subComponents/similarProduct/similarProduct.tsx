@@ -2,7 +2,7 @@ import Card from "../../../common/card/card";
 import { motion } from "framer-motion";
 import { useState,useEffect } from "react";
 import { getValueBykey } from "../../../../common_method/commonMethods";
-import { GetDataAPIParam } from "../../../../apihooks/apihooks";
+import { GetDataAPIParam } from "../../../../apiMethods/apihooks";
 const SimilarProducts = (Props:Record<string,any>): any => {
 
   console.log(Props)

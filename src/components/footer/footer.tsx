@@ -136,7 +136,7 @@ const Footer = (): any => {
               </a>
             </div>
             <p className="mt-4 text-sm text-white">
-              Follow us on your favrouite social media platfroms to get 
+              Follow us on your favrouite social media platforms to get 
               all new updates.
             </p>
           </div>

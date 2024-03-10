@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PostDataApiJSON } from "../../apihooks/apihooks";
+import { PostDataApiJSON } from "../../apiMethods/apihooks";
 import { getValueBykey } from "../../common_method/commonMethods";
 
 const ForgotPassword = () => {

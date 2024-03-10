@@ -1,4 +1,4 @@
-import { GetDataAPI, GetDataAPICredentialAdmin } from "../apihooks/apihooks";
+import { GetDataAPI, GetDataAPICredentialAdmin } from "../apiMethods/apihooks";
 
 const GetProducts = async (page: number, set_product_list: Function) => {
   const products = await GetDataAPI(
