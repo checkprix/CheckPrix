@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UpdateDataAPIAdminJson } from "../apihooks/apihooks";
+import { UpdateDataAPIAdminJson } from "../apiMethods/apihooks";
 import { getValueBykey } from "../common_method/commonMethods";
 
 const ChangePasswordForm: React.FC = () => {

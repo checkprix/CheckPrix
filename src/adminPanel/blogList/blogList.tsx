@@ -5,7 +5,7 @@ import Navbar from "../navbar/navbar";
 import {
   DeleteDataAPI,
   DeleteDataAPICredentialAdmin,
-} from "../../apihooks/apihooks";
+} from "../../apiMethods/apihooks";
 import { getBlog } from "../createBlog/methods/methods";
 import { LoadMore } from "../../common_method/commonMethods";
 import { Spinner } from "flowbite-react";
@@ -161,6 +161,8 @@ const BlogList = () => {
           </button>
         </div>
       )}
+          {!Array.isArray(list_of_blogs) && <Spinner />}
+           {allRecordFetched && <div className="text-center w-full">No products</div>}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/navbar";
-import { PostDataApiJSON } from "../../apihooks/apihooks";
+import { PostDataApiJSON } from "../../apiMethods/apihooks";
 import { useNavigate } from "react-router-dom";
 import Notification from "../common/notification/notification";
 import { Link } from "react-router-dom";

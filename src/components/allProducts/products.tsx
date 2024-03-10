@@ -7,7 +7,7 @@ import Footer from "../footer/footer";
 import CurrentPage from "../common/currentPage/currentPage";
 import { useEffect, useState } from "react";
 import { GetProducts, getValueBykey } from "../../common_method/commonMethods";
-import { GetDataAPIParam } from "../../apihooks/apihooks";
+import { GetDataAPIParam } from "../../apiMethods/apihooks";
 import { LoadMore } from "../../common_method/commonMethods";
 import Search from "../search/search";
 import Spinner from "../common/spinner/spinner";

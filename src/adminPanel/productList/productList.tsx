@@ -7,7 +7,7 @@ import {
   DeleteDataAPICredentialAdminJson,
   GetDataAPICredentialAdmin,
   PostDataAPIAdminJson,
-} from "../../apihooks/apihooks";
+} from "../../apiMethods/apihooks";
 
 import { LoadMore, getValueBykey } from "../../common_method/commonMethods";
 import Splinner from "../../components/common/spinner/spinner";

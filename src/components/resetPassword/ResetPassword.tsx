@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { UpdateDataAPI } from "../../apihooks/apihooks";
+import { UpdateDataAPI } from "../../apiMethods/apihooks";
 import { getValueBykey } from "../../common_method/commonMethods";
 
 const ResetPassword = () => {

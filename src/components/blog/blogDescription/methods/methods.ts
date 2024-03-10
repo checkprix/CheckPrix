@@ -1,4 +1,4 @@
-import { GetDataAPI } from "../../../../apihooks/apihooks"
+import { GetDataAPI } from "../../../../apiMethods/apihooks"
 
 const GetBlogById= async(id:string|undefined,set_blog:Function)=>{
     if(!id) return;

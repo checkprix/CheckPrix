@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../../../assests/logo/logo.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { DeleteDataAPI, UpdateDataAPI } from "../../../apihooks/apihooks";
+import { DeleteDataAPI, UpdateDataAPI } from "../../../apiMethods/apihooks";
 const Card = (Props: Record<string, any>): any => {
   //using as a toggle
   const [add_to_favrouite, set_add_to_favrouite] = useState<boolean>((Props?.heart)?true:false);

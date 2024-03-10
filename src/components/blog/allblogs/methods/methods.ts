@@ -1,4 +1,4 @@
-import { GetDataAPI } from "../../../../apihooks/apihooks"
+import { GetDataAPI } from "../../../../apiMethods/apihooks"
 import { getValueBykey } from "../../../../common_method/commonMethods";
 
 const getBlog = async(page:number,set_blog_list:Function)=>{

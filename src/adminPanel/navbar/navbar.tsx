@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
         <div className="flex items-center">
           <div className="hidden md:flex gap-3">
             <Link
-              to="/admin-dashboard"
+              to="/product-list"
               className="text-black font-semibold mr-4"
             >
               Home
@@ -69,7 +69,7 @@ const Navbar: React.FC = () => {
       {/* Collapsible Menu */}
       {isOpen && (
         <div className="md:hidden">
-          <Link to="/products" className="block text-black p-2">
+          <Link to="/product-list" className="block text-black p-2">
             Products
           </Link>
           <Link to="/store" className="block text-black p-2">
@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
           <Link to="/logout" className="block text-black p-2">
             Sign Out
           </Link>
-          <Link to="/" className="block text-black p-2">
+          <Link to="/product-list" className="block text-black p-2">
             Home
           </Link>
         </div>

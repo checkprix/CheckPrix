@@ -1,4 +1,4 @@
-import { GetDataAPICredentialAdmin, PostDataApiCredentialAdmin, UpdateDataAPI, UpdateDataApiCredentialAdmin } from "../../../apihooks/apihooks";
+import { GetDataAPICredentialAdmin, PostDataApiCredentialAdmin, UpdateDataAPI, UpdateDataApiCredentialAdmin } from "../../../apiMethods/apihooks";
 import { getValueBykey } from "../../../common_method/commonMethods";
 const UploadProductInDb = async (
   form: Record<string, any>,

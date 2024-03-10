@@ -3,7 +3,7 @@ import Footer from "../footer/footer";
 import Navbar from "../navbar/navbar";
 import Cover from "../../assests/images/cover.jpg";
 import Notification from "../common/notification/notification";
-import { UpdateDataAPI } from "../../apihooks/apihooks";
+import { UpdateDataAPI } from "../../apiMethods/apihooks";
 import { getValueBykey } from "../../common_method/commonMethods";
 const ChangePassword = () => {
   const [message, setMessage] = useState<string>("");
