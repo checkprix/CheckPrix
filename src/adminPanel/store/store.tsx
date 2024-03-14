@@ -4,6 +4,7 @@ import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { DeleteDataAPICredentialAdmin, GetDataAPICredentialAdmin, PostDataApiCredentialAdmin } from "../../apiMethods/apihooks";
 import { getValueBykey } from "../../common_method/commonMethods";
 import Navbar from "../navbar/navbar";
+import BackWard from "../commonComponents/BackButton";
 const Store = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const selectedFile = e.target.files && e.target.files[0];
@@ -15,7 +16,6 @@ const Store = () => {
   };
 
   const [store, setStore] = useState<Record<string, any>[]>([]);
-  const [BlogId, setBlogId] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
   const [previewURL, setPreviewURL] = useState<string | null>(null);
   const [store_name,set_Store_name] = useState<string>('');
@@ -28,6 +28,7 @@ const Store = () => {
     <>
     <Navbar/>
     <div className="overflow-x-auto h-fit p-5">
+      <BackWard link={'/product-list'}/>
       <div className="w-full flex justify-center items-center">
         <div className="flex items-center mr-4">
           {/* <img src="https://via.placeholder.com/50" alt="Product" className="w-fit h-20 rounded-md " /> */}

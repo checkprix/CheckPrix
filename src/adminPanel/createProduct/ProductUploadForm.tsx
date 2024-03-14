@@ -19,6 +19,7 @@ import {
 import StoreComponent from "./storeSubComponent/storeSubCompoent";
 import { getValueBykey } from "../../common_method/commonMethods";
 import { Spinner } from "flowbite-react";
+import BackWard from "../commonComponents/BackButton";
 
 const ProductUploadForm = () => {
 
@@ -169,7 +170,9 @@ const ProductUploadForm = () => {
     <>
        { is_loading && <div className="flex justify-center pt-5"> <Spinner/></div>}
       <div className="my-8 p-16 bg-white rounded-md w-full ">
+      <BackWard link={'/product-list'}/>
         <div className="flex justify-between">
+          
           <h2 className="text-2xl font-semibold mb-6">
             {!param?.id ? "Create a new product" : "Update Product"}
           </h2>
@@ -661,7 +664,7 @@ const ProductUploadForm = () => {
                 htmlFor="resolution"
                 className="block text-sm font-medium text-gray-600"
               >
-                Resolution (Width x Height)
+                Resolution (Width x Height) (No need use pixel suffix)
               </label>
               <input
                 required
@@ -669,7 +672,7 @@ const ProductUploadForm = () => {
                 id="resolution"
                 className="mt-1 p-2 w-full border rounded-md"
                 placeholder="Enter the resolution of the product (e.g., 1920x1080)"
-                value={uploadForm?.resolution ? uploadForm?.resolution : ""}
+                value={uploadForm?.resolution ? uploadForm?.resolution.replace(/pixel/i,'') : ""}
                 onChange={(e: any) => handleProductUpload(e)}
               />
             </div>
@@ -715,17 +718,17 @@ const ProductUploadForm = () => {
                 htmlFor="resolution"
                 className="block text-sm font-medium text-gray-600"
               >
-                Battery Capacity
+                Battery Capacity (mAh suppix will append automatically)
               </label>
               <input
                 required
-                type="text"
+                type="number"
                 id="battery_capacity"
                 className="mt-1 p-2 w-full border rounded-md"
                 placeholder="Enter the Battery Capacity"
                 value={
                   uploadForm?.battery_capacity
-                    ? uploadForm?.battery_capacity
+                    ? uploadForm?.battery_capacity.replace(/mAz/,'')
                     : ""
                 }
                 onChange={(e: any) => handleProductUpload(e)}

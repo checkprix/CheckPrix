@@ -95,8 +95,8 @@ const MobileDescription = (Props: Record<string, any>): any => {
           {/* Pricing  */}
           <div className="flex flex-col pt-5 gap-3">
             <div className="flex gap-3">
-              <span>{`Old Price: ${getValueBykey("old_price", Props)}Rs`}</span>
-              <span>{`New Price: ${getValueBykey("new_price", Props)}Rs`}</span>
+              <span>{`Old Price: Rs${getValueBykey("old_price", Props)}`}</span>
+              <span>{`New Price: Rs${getValueBykey("new_price", Props)}`}</span>
             </div>
             <span>{`Total listing: ${getValueBykey(
               "listing",
@@ -163,7 +163,7 @@ const PriceSection = (Props:Record<string,any>): any => {
               </div>
               <div className="w-fit h-full flex items-center justify-between flex-col p-3 ">
                 <div className="w-fit font-semibold text-xl lg:pr-5">{item.name}</div>
-                <div className="w-fit text-blue-600 text-xl font-semibold lg:pr-5">{(item.price == 0)? 'N/A' : item.price+'Rs'}</div>
+                <div className="w-fit text-blue-600 text-xl font-semibold lg:pr-5">{(item.price == 0)? 'N/A' : 'Rs'+item.price}</div>
               </div>
             
               
