@@ -19,10 +19,15 @@ const SignIn = () => {
 
   return (
     <>
-      <Navbar />
+    <div className="relative h-[100px]">
+   <div>
+     <Navbar />
+   </div>
+    </div>
      { trigger &&<Notification message={message} setTrigger={setTrigger} status={false} />}
-      <div className="h-screen flex justify-between items-between">
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="h-screen overflow-hidden flex flex-col justify-center items-center w-full">
+        <div className="w-full h-fit overflow-hidden">
+        <div className="flex overflow-hidden w-full h-[500px] flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               className="mx-auto h-10 w-auto"
@@ -158,7 +163,10 @@ const SignIn = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      </div>
+    <div className="w-full bottom-0 overflow-hidden">
+    <Footer />
+    </div>
     </>
   );
 };

@@ -1,28 +1,24 @@
 import { useEffect } from "react";
 
-const GoogleAds = ()=>{
-
-
-    useEffect(()=>{
-    try{
-      
-
+const GoogleAds = () => {
+  useEffect(() => {
+    if ((window as any).adsbygoogle) {
+        (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+        (window as any).adsbygoogle.push({});
     }
-    catch(err)
-    {
+  }, []);
 
-    }
-    },[])
-
-    return (<>
- 
-    <ins className='adsbygoogle'
-          style={{ display: 'block' }}
-          data-ad-client='ca-pub-12121212'
-          data-ad-slot='12121212'
-          data-ad-format='auto' />
-    
-    </>)
-}
+  return (
+    <>
+      <ins
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client="pub-3961225425063983"
+        data-ad-slot="f08c47fec0942fa0"
+        data-ad-format="auto"
+      />
+    </>
+  );
+};
 
 export default GoogleAds;

@@ -9,6 +9,7 @@ import {
   updatePost,
 } from "./methods/methods";
 import { Spinner } from "flowbite-react";
+import BackWard from "../commonComponents/BackButton";
 const CreateBlog = (): any => {
   //param
   const param: any = useParams();
@@ -62,7 +63,7 @@ const CreateBlog = (): any => {
     <>
       { is_loading && <div className="flex justify-center pt-5"> <Spinner/></div>}
     <div className="my-8 p-16 bg-white rounded-md w-full">
-    
+      <BackWard link={'/blog-list'}/>
       <div className="flex justify-between">
         <h2 className="text-2xl font-semibold mb-6">
           {!param?.id ? "Create a New Blog Post" : "Update blog"}

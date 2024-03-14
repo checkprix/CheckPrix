@@ -6,7 +6,6 @@ import SearchBar from "../common/searchBar/searchBar";
 import BlogCard from "../common/blogcard/blogCard";
 import Footer from "../footer/footer";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getBlog } from "../blog/allblogs/methods/methods";
 import {
@@ -15,6 +14,7 @@ import {
   getValueBykey,
 } from "../../common_method/commonMethods";
 import Splinner from "../common/spinner/spinner";
+import GoogleAds from "../googleAds/GoogleAds";
 
 const Home = (): any => {
   const [blog_list, set_blog_list] = useState<Record<string, any>[] | null>(
@@ -49,13 +49,9 @@ const Home = (): any => {
         </div>
       </div>
 
-      {/* //Slider here */}
-      {/* <div className="flex flex-col items-center justify-center mt-5">
-        <div className="w-4/5">
-       
-     
-        </div>
-        </div> */}
+
+    {/* google ads component */}
+    <div className="w-full"><GoogleAds/></div>
 
       {/* ------------Price Drop section start------------  */}
       <div className="flex flex-col items-center justify-center mt-5">
