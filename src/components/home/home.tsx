@@ -38,7 +38,7 @@ const Home = (): any => {
 
       <div
         style={{ backgroundImage: `url(${Cover})`}}
-        className="w-full flex flex-col justify-center items-center   h-[600px] bg-cover relative overflow-y-auto "
+        className="w-full flex flex-col justify-center items-center  h-[600px] bg-cover relative overflow-y-auto "
       >
         <div className="w-full absolute top-0">
           <Navbar />
