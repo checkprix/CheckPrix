@@ -26,7 +26,9 @@ const SearchBar = (): any => {
               type="text"
             />
             <button
-            onClick={()=> navigate(`/search/${stateForSearchInput}`)}
+            onClick={()=> {
+              if(stateForSearchInput.length ===0) return;
+              navigate(`/search/${stateForSearchInput}`)}}
               style={{ borderWidth: "3px" }}
               className="lg:block p-3 w-fit lg:w-auto rounded-md border-orange-500 text-orange-500 text-xl"
             >
