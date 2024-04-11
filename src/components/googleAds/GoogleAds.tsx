@@ -1,29 +1,22 @@
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 const GoogleAds = () => {
-
-  const useSearch = useSearchParams();
   useEffect(() => {
-    const scriptElement = window.document.querySelector(
-      'script[src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3961225425063983"]'
-    );
-    
-    const handlescriptLoad = () => {
-      try {
-        if ((window as any).adsbygoogle) {
-           (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-          (window as any).adsbygoogle.push({});
-        } else {
-          scriptElement!.addEventListener("load", handlescriptLoad);
-          console.log("waiting unitl adsense lib is loaded");
-        }
-      } catch (err) {
-        console.log("err in adsence", err);
-      }
-    };
+    handleScriptLoad();
+  }, []);
 
-    handlescriptLoad();
-  }, [useSearch]);
+  const handleScriptLoad = () => {
+    try {
+      if ((window as any).adsbygoogle) {
+        (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+        (window as any).adsbygoogle.push({});
+        console.log((window as any).adsbygoogle);
+      } else {
+        console.log("waiting until Adsense lib is loaded");
+      }
+    } catch (err) {
+      console.log("Error in Adsense", err);
+    }
+  };
 
   return (
     <>
@@ -31,11 +24,11 @@ const GoogleAds = () => {
         <ins
           className="adsbygoogle"
           style={{ display: "block" }}
-          data-ad-client="pub-3961225425063983"
-          data-ad-slot="f08c47fec0942fa0"
+          data-ad-client="ca-pub-3961225425063983"
+          data-ad-slot="4608091824"
           data-ad-format="auto"
-          data-full-widdth-responsive="true"
-        />
+          data-full-width-responsive="true"
+        ></ins>
       </div>
     </>
   );
